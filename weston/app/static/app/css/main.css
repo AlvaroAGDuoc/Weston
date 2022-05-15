@@ -1,0 +1,82 @@
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 100vh;
+	background-color: #fafff0;
+}
+
+.alert {
+	z-index: 100;
+}
+
+.card-border {
+	border: solid 10px white;
+	border-radius: 20px;
+	overflow: hidden;
+	transition: all ease-out 0.2s;
+}
+
+.card-border:hover {
+	transform: scale(1.02);
+}
+
+.carrito {
+	min-height: 80vh;
+	margin: 0 auto;
+	width: 100%;
+}
+.table__productos {
+	display: flex;
+}
+.table__productos > img {
+	width: 9rem;
+	object-fit: contain;
+	border-radius: 6px;
+	margin-right: 20px;
+}
+.table__cantidad > input {
+	width: 40px;
+	border: none;
+	outline: 0;
+	font-size: 16px;
+	font-weight: 700;
+	margin-right: 30px;
+	margin-bottom: 20px;
+}
+
+.hide,
+.remove {
+	display: none;
+}
+
+footer {
+	min-height: calc(100vh - 470px - 58px);
+	margin: 0 auto;
+	width: 100%;
+	padding: 50px 20px;
+}
+
+.imagen {
+	border-radius: 50%;
+}
+
+.texto-principal {
+	color: #e0a901;
+	font-family: 'Domine', serif;
+	font-weight: bold;
+}
+
+.titulo-producto {
+	color: #e0a901;
+}
+
+#warnings {
+	width: 200px;
+	text-align: center;
+	margin: auto;
+	color: #c50000;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	font-weight: bold;
+}
