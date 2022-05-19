@@ -45,7 +45,21 @@ def menu_admin(request):
     return render(request, 'app/vista_admin/admin.html')
 
 def agregar_producto(request):
-    return render(request, 'app/vista_admin/agregar_producto.html')
+    categorias = Categoria.objects.all()
+    contexto = {"cat": categorias}
+    return render(request, 'app/vista_admin/agregar_producto.html', contexto)
+
+def registrar_producto(request):
+    nombre = request.POST['nombre']
+    precio = request.POST['precio']
+    imagen = request.FILES['foto']
+    categoria = request.POST['categoria']
+    stock = request.POST['stock']
+    descripcion = request.POST['descripcion']
+
+    cat2 = Categoria.objects.get(idCategoria = categoria)
+    Producto.objects.create(nombre=nombre, precio= precio, imagen= imagen, categoria= categoria, stock= stock, descripcion = descripcion)
+    return redirect('form_agregar')
 
 def lista_usuarios(request):
     return render(request, 'app/vista_admin/lista_usuarios.html')
