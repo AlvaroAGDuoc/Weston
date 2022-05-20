@@ -5,7 +5,7 @@
 {% block content %}
 		<!-- REGISTER -->
 		<div class="container">
-			<form method="post" id="form-reg">
+			<form action="{% url 'enviar_registro' %}" method="POST" enctype="multipart/form-data" id="form_reg">
 				{% csrf_token %}
 				<div class="row">
 					<div class="col-2 mt-3 mb-3"></div>
@@ -27,7 +27,7 @@
 							<input
 								type="email"
 								class="form-control mt-1 mb-2"
-								name="correo"
+								name="email"
 								id="email_reg"
 								placeholder="example@example.com"
 							/>
@@ -36,7 +36,7 @@
 							<input
 								type="text"
 								class="form-control mt-1 mb-2"
-								name="dir"
+								name="direccion"
 								id="dir_reg"
 								placeholder="ej. Pasaje uchiha 123"
 							/>
@@ -44,8 +44,8 @@
 							<div class="form-group">
 								<h5>Región</h5>
 							   <select class="form-control" name="region" id="region">
-								   {% for i in region %}
-								   <option value="{{  }}">{{  }}</option>
+								   {% for i in reg %}
+								   <option value="{{ i.idRegion }}">{{ i.nombre }}</option>
 								{% endfor %}
 							   </select>
 							</div>
@@ -53,8 +53,8 @@
 							<div class="form-group">
 								<h5>Comuna</h5>
 							   <select class="form-control" name="comuna" id="comuna">
-								   {% for i in comuna %}
-								   <option value="{{  }}">{{  }}</option>
+								   {% for i in com %}
+								   <option value="{{ i.idComuna }}">{{ i.nombre }}</option>
 								{% endfor %}
 							   </select>
 							</div>
@@ -62,7 +62,7 @@
 							<input
 								type="number"
 								class="form-control mt-1 mb-2"
-								name="celu"
+								name="telefono"
 								id="celular"
 								placeholder="ej. 9 1111 2222"
 							/>
@@ -88,8 +88,7 @@
 
 							<div class="d-grid gap-2">
 								<button type="submit" class="btn btn-dark mb-3" id="btn_reg">
-									Registrarse
-								
+									Registrarse	
 							</div>
 							
 							<p id="warnings" class="text-center "></p>

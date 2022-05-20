@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import inicio, login, registro, producto_cocina, producto_libreros, producto_muebles, contacto, contrasena_olvidada, carrito, muestra_producto, perfil, editar_usuario, cambiar_contrasena, menu_admin, agregar_producto, lista_usuarios, modificar_producto, registro_ventas
+from .views import inicio, login, registro, producto_cocina, producto_libreros, producto_muebles, contacto, contrasena_olvidada, carrito, muestra_producto, perfil, form_agregar, editar_usuario, cambiar_contrasena, menu_admin, registrar_p, lista_usuarios, modificar_producto, registro_ventas, enviar_registro
 
 urlpatterns = [
     path('', inicio, name="inicio"),
     path('login/', login, name="login"),
     path('registro/', registro, name="registro"),
+    path('enviar_registro/', enviar_registro, name="enviar_registro"),
     path('cocina/', producto_cocina, name="cocina"),
     path('libreros/', producto_libreros, name="libreros"),
     path('muebles/', producto_muebles, name="muebles"),
@@ -15,7 +16,8 @@ urlpatterns = [
     path('editar_perfil/', editar_usuario, name="editar_perfil"),
     path('cambiar_contrasena/', cambiar_contrasena, name="cambiar_contrasena"),
     path('menu_admin/', menu_admin, name="menu_admin"),
-    path('agregar_producto/', agregar_producto, name="agregar_producto"),
+    path('form_agregar/', form_agregar, name="form_agregar"),
+    path('registrar_p/', registrar_p, name="registrar_p"),
     path('lista_usuarios/', lista_usuarios, name="lista_usuarios"),
     path('modificar_producto/', modificar_producto, name="modificar_producto"),
     path('ventas/', registro_ventas, name="registro_ventas"),

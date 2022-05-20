@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 	/* Validaciones registro*/
-	$('#form-reg').submit(function (e) {
+	$('#form_reg').submit(function (e) {
 		e.preventDefault();
 		var nombre = $('#nombre_reg').val();
 		var clave = $('#pass_reg').val();
@@ -82,22 +82,7 @@ $(document).ready(function () {
         }
 		//FIN VALIDACIONES DIRECCION
 
-		//-----------------------//
-
-		//VALIDACIONES COMUNA
-		if (com.trim().length <= 5 || com.trim().length > 20) {
-			mensaje += 'La comuna debe tener un largo minimo de 5 y maximo de 20.<br>';
-			entrar = true;
-		}
-		if(!/[a-z]/.test(com) && (!/[A-Z]/.test(com))){
-            mensaje += "La comuna no contiene caracteres. <br>"
-            entrar = true;
-        }
-		if(/[0-9]/.test(com)){
-            mensaje += "La comuna no puede tener digitos. <br>"
-            entrar = true;
-        }
-		//FIN VALIDACIONES COMUNA
+		//-----------------------//		
 
 		//-----------------------//
 
@@ -273,7 +258,7 @@ $(document).ready(function () {
 	});
 
 	/* Validaciones agregar producto */
-	$('#form-agregar').submit(function (e) {
+	$('#form_agregar').submit(function (e) {
 		e.preventDefault();
 		var nombre = $('#nombre_prod').val();
 		var precio = $('#precio_prod').val();
