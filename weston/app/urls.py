@@ -20,6 +20,6 @@ urlpatterns = [
     path('form_agregar/', form_agregar, name="form_agregar"),
     path('registrar_p/', registrar_p, name="registrar_p"),
     path('lista_usuarios/', lista_usuarios, name="lista_usuarios"),
-    path('modificar_producto/', modificar_producto, name="modificar_producto"),
+    path('modificar_producto/<int:id>', modificar_producto, name="modificar_producto"),
     path('ventas/', registro_ventas, name="registro_ventas"),
 ]

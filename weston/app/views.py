@@ -77,12 +77,45 @@ def registrar_p(request):
     Producto.objects.create(nombre=nombre, precio= precio, imagen= imagen, categoria= cat2, stock= stock, descripcion = descripcion)
     return redirect('form_agregar')
 
+
+
 def lista_usuarios(request):
     return render(request, 'app/lista_usuarios.html')
 
-def modificar_producto(request):
-    return render(request, 'app/modificar_producto.html')
+def modificar_producto(request, idProducto):
+    producto1 = Producto.objects.get(idProducto = id) # obtengo los datos del producto
+    cat1 = Categoria.objects.all() # obtener todas las categorias para llenar combobox
 
+    contexto =  {
+        "producto" : producto1,
+        "categoria" : cat1
+    }
+
+
+    return render(request, 'app/modificar_producto.html',contexto)
+
+def modificar_p(request):
+    idProducto = request.POST['idProducto']
+    nombre = request.POST['nombre']
+    precio = request.POST['precio']
+    imagen = request.FILES['foto']
+    categoria = request.POST['categoria']
+    stock = request.POST['stock']
+    descripcion = request.POST['descripcion']
+
+    producto = Producto.objects.get(idProducto = idProducto) #el registro original
+    #comienzo a reemplazar los valores en ese registro original
+    mascota.nombreMascota = nombre_m
+    mascota.edadMascota = edad_m
+
+    raza_m2 = Raza.objects.get(codigo = raza_m)
+
+    mascota.raza = raza_m2
+    mascota.save() #update
+
+    messages.success(request, 'Mascota Modificada')
+    return redirect('listado')
+    
 def registro_ventas(request):
     return render(request, 'app/registro_ventas.html')
 

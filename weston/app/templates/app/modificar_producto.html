@@ -8,33 +8,45 @@
 		<div class="container mb-3 mt-3">
 			<h3 class="texto-principal text-center">Modificar producto</h3>
 			<hr />
-			<form class="row g-3" id="form_modprod">
+			<form action="{% url 'modificar' %}" class="row g-3" id="form_modprod">
+				{% csrf_token %}
+				<div class="col-md-6">
+					<label class="form-label">ID Producto</label>
+					<input
+						name="idProducto"
+						readonly
+						type="text"
+						class="form-control"
+						id="idProducto"
+						
+					/>
+				</div>
 				<div class="col-md-6">
 					<label class="form-label">Nombre del producto</label>
 					<input
+						name="nombre"
 						type="text"
 						class="form-control"
 						id="nombre"
-						placeholder="Escriba el nombre del producto aquí..."
 						required
 					/>
 				</div>
 				<div class="col-md-6">
 					<label class="form-label">Precio</label>
 					<input
+						name="precio"
 						type="number"
 						class="form-control"
 						id="precio"
-						placeholder="Ingrese el precio del producto aquí..."
 						required
 					/>
 				</div>
 				<div class="mb-3">
-					<label for="formFile" class="form-label">Agregar imagen</label>
-					<input class="form-control" type="file" id="formFile" required />
+					<label  for="formFile" class="form-label">Agregar imagen</label>
+					<input name="foto" class="form-control" type="file" id="formFile" required />
 				</div>
 				<div class="col-md-12">
-					<select class="form-select" id="inputGroupSelect02">
+					<select class="form-select" name="categoria" id="categoria">
 						<option selected>Escoge La Categoría</option>
 						<option value="1">Cocina</option>
 						<option value="2">Muebles</option>
@@ -44,16 +56,16 @@
 				<label for="floatingTextarea2">Descripción del producto</label>
 				<textarea
 					class="form-control"
-					placeholder="Escriba la descripción del producto aquí..."
+					
 					style="height: 100px"
-					id="desc_prod"
+					id="descripcion"
+					name="descripcion"
 					required
 				></textarea>
 				<div class="col-12">
 					<button type="submit" class="btn btn-dark">Agregar</button>
-					<a href="admin.html"
-						><button type="button" class="btn btn-dark">Deshacer</button></a
-					>
+					<a href="admin.html">
+					<button type="button" class="btn btn-dark">Deshacer</button></a>
 				</div>
 				<p id="warnings" class="text-center"></p>
 			</form>

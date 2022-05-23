@@ -343,10 +343,10 @@ $(document).ready(function () {
 	/* Validaciones modificar producto */
 
 	$('#form_modprod').submit(function (e) {
-		e.preventDefault();
+		
 		var nombre = $('#nombre').val();
 		var precio = $('#precio').val();
-		var descripcion = $('#desc_prod').val();
+		var descripcion = $('#descripcion').val();
 
 		var mensaje = '';
 
@@ -356,11 +356,13 @@ $(document).ready(function () {
 		if (nombre.trim().length < 4 || nombre.trim().length > 25) {
 			mensaje += 'El nombre del producto debe tener 4 caracteres como mínimo y máximo 25. <br>';
 			entrar = true;
+			e.preventDefault();
 		}
 
 		if(/[0-9]/.test(nombre)){
             mensaje += "El nombre del producto no puede tener digitos. <br>"
             entrar = true;
+			e.preventDefault();
         }
 
 		//NO ESTOY MUY SEGURO DE ESTA VALIDACION PERO POR LO QUE EH PROBADO SIRVE
@@ -369,6 +371,7 @@ $(document).ready(function () {
 		}else{
 			mensaje += "El nombre del producto debe tener la primera letra Mayuscula. <br>"
             entrar = true;
+			e.preventDefault();
 		}
 		//FIN VALIDACIONES NOMBRE
 
@@ -378,6 +381,7 @@ $(document).ready(function () {
 		if (precio <= 0) {
 			mensaje += 'El precio debe ser mayor a 0.<br>';
 			entrar = true;
+			e.preventDefault();
 		}
 		//FIN VALIDACIONES PRECIO
 
@@ -387,6 +391,7 @@ $(document).ready(function () {
 		if (descripcion.length < 10 || descripcion.length > 120) {
 			mensaje += 'La descripción debe ser mayor a 10 y menor a 120 caracteres.<br>';
 			entrar = true;
+			e.preventDefault();
 		}
 
 		//NO ESTOY MUY SEGURO DE ESTA VALIDACION PERO POR LO QUE EH PROBADO SIRVE
@@ -395,6 +400,7 @@ $(document).ready(function () {
 		}else{
 			mensaje += "La descripción del producto debe tener la primera letra Mayuscula. <br>"
             entrar = true;
+			e.preventDefault();
 		}
 		//FIN VALIDACIONES DESCRIPCION
 
