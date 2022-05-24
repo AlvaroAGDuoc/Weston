@@ -8,17 +8,18 @@
 		<div class="container mb-3 mt-3">
 			<h3 class="texto-principal text-center">Modificar producto</h3>
 			<hr />
-			<form action="{% url 'modificar' %}" class="row g-3" id="form_modprod">
+			<form action="{% url 'modificar_p' %}" method="POST" enctype="multipart/form-data" class="row g-3" id="form_modprod">
 				{% csrf_token %}
 				<div class="col-md-6">
 					<label class="form-label">ID Producto</label>
 					<input
-						name="idProducto"
-						readonly
+						name="idP"
 						type="text"
 						class="form-control"
-						id="idProducto"
-						
+						id="idP"
+						value="{{producto.idProducto}}"
+						required
+						readonly
 					/>
 				</div>
 				<div class="col-md-6">
@@ -28,6 +29,7 @@
 						type="text"
 						class="form-control"
 						id="nombre"
+						value="{{producto.nombre}}"
 						required
 					/>
 				</div>
@@ -38,30 +40,45 @@
 						type="number"
 						class="form-control"
 						id="precio"
+						value="{{producto.precio}}"
 						required
 					/>
 				</div>
 				<div class="mb-3">
 					<label  for="formFile" class="form-label">Agregar imagen</label>
-					<input name="foto" class="form-control" type="file" id="formFile" required />
+					<input name="foto" class="form-control" type="file" id="formFile" />
 				</div>
-				<div class="col-md-12">
-					<select class="form-select" name="categoria" id="categoria">
-						<option selected>Escoge La Categoría</option>
-						<option value="1">Cocina</option>
-						<option value="2">Muebles</option>
-						<option value="3">Libreros</option>
+				<div class="form-group">
+					<h5>Categoria</h5>
+					<select class="form-control" name="categoria" id="categoria">
+						{% for i in categoria %}
+							{% if i.idCategoria == producto.categoria.idProducto %}
+								<option value="{{ i.idCategoria }}" selected>{{ i.nombre }}</option>
+							{% else %}
+								<option value="{{ i.idCategoria }}"> {{ i.nombre }}</option>
+							{% endif %}
+						{% endfor %}
 					</select>
+				</div>
+				<div class="col-md-3">
+					<label class="form-label">Stock</label>
+					<input
+						type="number"
+						class="form-control"
+						id="stock"
+						name="stock"
+						value="{{producto.stock}}"
+						required
+					/>
 				</div>
 				<label for="floatingTextarea2">Descripción del producto</label>
 				<textarea
-					class="form-control"
-					
+					class="form-control"	
 					style="height: 100px"
 					id="descripcion"
 					name="descripcion"
 					required
-				></textarea>
+				>{{producto.descripcion}}</textarea>
 				<div class="col-12">
 					<button type="submit" class="btn btn-dark">Agregar</button>
 					<a href="admin.html">

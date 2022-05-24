@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
 from .models import Categoria, Producto, Region, Comuna, Cliente
+from django.contrib import messages
+
 # Create your views here.
 
 def inicio(request):
@@ -58,7 +59,9 @@ def cambiar_contrasena(request):
     return render(request, 'app/cambiar_contrasena.html')
 
 def menu_admin(request):
-    return render(request, 'app/admin.html')
+    productos = Producto.objects.all()
+    contexto = {"producto": productos}
+    return render(request, 'app/admin.html',contexto)
 
 def form_agregar(request):
     categorias = Categoria.objects.all()
@@ -82,7 +85,7 @@ def registrar_p(request):
 def lista_usuarios(request):
     return render(request, 'app/lista_usuarios.html')
 
-def modificar_producto(request, idProducto):
+def modificar_producto(request, id):
     producto1 = Producto.objects.get(idProducto = id) # obtengo los datos del producto
     cat1 = Categoria.objects.all() # obtener todas las categorias para llenar combobox
 
@@ -95,7 +98,7 @@ def modificar_producto(request, idProducto):
     return render(request, 'app/modificar_producto.html',contexto)
 
 def modificar_p(request):
-    idProducto = request.POST['idProducto']
+    idP = request.POST['idP']
     nombre = request.POST['nombre']
     precio = request.POST['precio']
     imagen = request.FILES['foto']
@@ -103,18 +106,31 @@ def modificar_p(request):
     stock = request.POST['stock']
     descripcion = request.POST['descripcion']
 
-    producto = Producto.objects.get(idProducto = idProducto) #el registro original
+    cat2 = Categoria.objects.get(idCategoria = categoria)
+
+    producto = Producto.objects.get(idProducto = idP) #el registro original
     #comienzo a reemplazar los valores en ese registro original
-    mascota.nombreMascota = nombre_m
-    mascota.edadMascota = edad_m
+    producto.nombre = nombre
+    producto.precio = precio
+    producto.imagen = imagen
+    producto.categoria = cat2
+    producto.stock = stock
+    producto.descripcion = descripcion
 
-    raza_m2 = Raza.objects.get(codigo = raza_m)
+    categoria_p2 = Categoria.objects.get(idCategoria = categoria)
 
-    mascota.raza = raza_m2
-    mascota.save() #update
+    producto.categoria = categoria_p2
+    producto.save()
 
-    messages.success(request, 'Mascota Modificada')
-    return redirect('listado')
+    messages.success(request, 'Producto Modificado')
+    return redirect('menu_admin')
+
+def eliminar_producto(request, id):
+    producto1 = Producto.objects.get(idProducto = id)
+    producto1.delete()
+    messages.success(request, 'Producto eliminado')
+
+    return redirect('menu_admin')
     
 def registro_ventas(request):
     return render(request, 'app/registro_ventas.html')

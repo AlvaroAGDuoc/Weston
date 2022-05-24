@@ -20,152 +20,33 @@
 			
 			<hr />
 			<div class="row mb-3">
+				{% for p in producto %}
 				<div class="col-md-4 col-sm-6 mb-3">
 					<div class="card shadow bg-light">
+						{% if p.imagen %}
 						<img
 							class="card-img-top"
-							src="../img/cocina.jpg"
-							alt="Card image"
+							src="{{p.imagen.url}}"
+							alt="{{p.nombre}}"
 							style="width: 100%"
 						/>
+						{% endif %}
 						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Cocina</h4>
+							<h4 class="card-title titulo-producto text-center">{{p.nombre}}</h4>
 							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
+								{{p.descripcion}}
 							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
+							<h3 class="titulo-producto text-center">{{p.precio}}</h3>
 							<div class="d-grid gap-2">
-								<a href="../vista_admin/Modificar_Producto.html" class="btn btn-dark">Editar</a>
-								<a href="#" class="btn btn-dark">Eliminar</a>
+								<a href="{% url 'modificar_producto' p.idProducto %}" class="btn btn-dark">Editar</a>
+								<a href="{% url 'eliminar_producto' p.idProducto %}" class="btn btn-dark">Eliminar</a>
 							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						<img
-							class="card-img-top"
-							src="../img/mueble.png"
-							alt="Card image"
-							style="width: 100%"
-						/>
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Mueble</h4>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
-							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
-							<div class="d-grid gap-2">
-								<a href="../vista_admin/Modificar_Producto.html" class="btn btn-dark">Editar</a>
-								<a href="#" class="btn btn-dark">Eliminar</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						<img
-							class="card-img-top"
-							src="../img/libreria.jpg"
-							alt="Card image"
-							style="width: 100%"
-						/>
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Librero</h4>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
-							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
-							<div class="d-grid gap-2">
-								<a href="../vista_admin/Modificar_Producto.html" class="btn btn-dark">Editar</a>
-								<a href="#" class="btn btn-dark">Eliminar</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						<img
-							class="card-img-top"
-							src="../img/cocina.jpg"
-							alt="Card image"
-							style="width: 100%"
-						/>
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Cocina</h4>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
-							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
-							<div class="d-grid gap-2">
-								<a href="../vista_admin/Modificar_Producto.html" class="btn btn-dark">Editar</a>
-								<a href="#" class="btn btn-dark">Eliminar</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						<img
-							class="card-img-top"
-							src="../img/mueble.png"
-							alt="Card image"
-							style="width: 100%"
-						/>
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Mueble</h4>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
-							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
-							<div class="d-grid gap-2">
-								<a href="../vista_admin/Modificar_Producto.html" class="btn btn-dark">Editar</a>
-								<a href="#" class="btn btn-dark">Eliminar</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						<img
-							class="card-img-top"
-							src="../img/libreria.jpg"
-							alt="Card image"
-							style="width: 100%"
-						/>
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Librero</h4>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
-							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
-							<div class="d-grid gap-2">
-								<a href="../vista_admin/Modificar_Producto.html" class="btn btn-dark">Editar</a>
-								<a href="#" class="btn btn-dark">Eliminar</a>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
+			{% endfor %}
 		</div>
+	</div>
+				
 
 {% endblock %}
