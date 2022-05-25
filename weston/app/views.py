@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Categoria, Producto, Region, Comuna, Cliente
+from .models import Categoria, Producto, Region, Comuna, Usuario
 from django.contrib import messages
 
 # Create your views here.
@@ -24,8 +24,9 @@ def enviar_registro(request):
     celu = request.POST['telefono']
     contrasena = request.POST['contrasena']
 
+
     com2 = Comuna.objects.get(idComuna = comuna)
-    Cliente.objects.create(nombre=nombre, email=email, direccion=direccion, comuna=com2, telefono=celu, clave=contrasena)
+    Usuario.objects.create(nombre=nombre, email=email, direccion=direccion, comuna=com2, telefono=celu, clave=contrasena)
     return redirect('registro')
 
 def producto_cocina(request):

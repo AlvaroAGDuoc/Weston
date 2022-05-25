@@ -22,9 +22,25 @@ class Producto(models.Model):
         return self.nombre
 
 
-class Region(models.Model):
-    idRegion = models.AutoField(primary_key=True, verbose_name="Id de la region")
-    nombre =  models.CharField(max_length=30, verbose_name="Nombre de la region",null=True, blank=False)
+class Usuario(models.Model):
+    idUsuario = models.AutoField(primary_key=True, verbose_name="Id del usuario")
+    nombre =  models.CharField(max_length=40, verbose_name="Nombre del usuario",null=True, blank=False)
+    email =  models.EmailField(max_length=50, verbose_name="Email del usuario")
+    clave = models.CharField(max_length=30, verbose_name="Clave del usuario", null=True, blank=False)
+    telefono = models.IntegerField(verbose_name="Telefono del usuario")
+
+    def __str__(self):
+        return self.nombre
+
+class Rol(models.Model):
+    idRol = models.AutoField(primary_key=True, verbose_name="Id de rol")
+    nombre = models.CharField(max_length=40, verbose_name="Nombre tipo rol",null=True, blank=False)
+
+class Direccion(models.Model):
+    idDireccion = models.AutoField(primary_key=True, verbose_name="Id de rol")
+    nombre = models.CharField(max_length=40, verbose_name="Nombre de la direccion",null=True, blank=False)
+    comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre
@@ -37,14 +53,9 @@ class Comuna(models.Model):
     def __str__(self):
         return self.nombre
 
-class Cliente(models.Model):
-    idCliente = models.AutoField(primary_key=True, verbose_name="Id del cliente")
-    nombre =  models.CharField(max_length=40, verbose_name="Nombre del cliente",null=True, blank=False)
-    email =  models.EmailField(max_length=50, verbose_name="Email del cliente")
-    clave = models.CharField(max_length=30, verbose_name="Clave del cliente", null=True, blank=False)
-    direccion = models.CharField(max_length=45, verbose_name="Direccion del cliente", null=True, blank=False)
-    telefono = models.IntegerField(verbose_name="Telefono del cliente")
-    comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
+class Region(models.Model):
+    idRegion = models.AutoField(primary_key=True, verbose_name="Id de la region")
+    nombre =  models.CharField(max_length=30, verbose_name="Nombre de la region",null=True, blank=False)
 
     def __str__(self):
         return self.nombre
