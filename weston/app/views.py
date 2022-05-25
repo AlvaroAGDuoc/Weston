@@ -101,26 +101,46 @@ def modificar_p(request):
     idP = request.POST['idP']
     nombre = request.POST['nombre']
     precio = request.POST['precio']
-    imagen = request.FILES['foto']
     categoria = request.POST['categoria']
     stock = request.POST['stock']
     descripcion = request.POST['descripcion']
+    try:
+        imagen = request.FILES['foto']
+        cat2 = Categoria.objects.get(idCategoria = categoria)
 
-    cat2 = Categoria.objects.get(idCategoria = categoria)
+        producto = Producto.objects.get(idProducto = idP) #el registro original
+        #comienzo a reemplazar los valores en ese registro original
+        producto.nombre = nombre
+        producto.precio = precio
+        producto.imagen = imagen
+        producto.categoria = cat2
+        producto.stock = stock
+        producto.descripcion = descripcion
 
-    producto = Producto.objects.get(idProducto = idP) #el registro original
-    #comienzo a reemplazar los valores en ese registro original
-    producto.nombre = nombre
-    producto.precio = precio
-    producto.imagen = imagen
-    producto.categoria = cat2
-    producto.stock = stock
-    producto.descripcion = descripcion
+        categoria_p2 = Categoria.objects.get(idCategoria = categoria)
 
-    categoria_p2 = Categoria.objects.get(idCategoria = categoria)
+        producto.categoria = categoria_p2
+        producto.save()
+    except:
+        cat2 = Categoria.objects.get(idCategoria = categoria)
 
-    producto.categoria = categoria_p2
-    producto.save()
+        producto = Producto.objects.get(idProducto = idP) #el registro original
+        #comienzo a reemplazar los valores en ese registro original
+        producto.nombre = nombre
+        producto.precio = precio
+    
+        producto.categoria = cat2
+        producto.stock = stock
+        producto.descripcion = descripcion
+
+        categoria_p2 = Categoria.objects.get(idCategoria = categoria)
+
+        producto.categoria = categoria_p2
+        producto.save()
+
+    
+
+    
 
     messages.success(request, 'Producto Modificado')
     return redirect('menu_admin')
