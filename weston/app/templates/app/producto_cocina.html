@@ -17,8 +17,6 @@
 		<div class="container">
 			<h1 class="texto-principal text-center mb-3 mt-3">Cocinas</h1>
 			<hr />
-			
-				<hr />
 				<div class="row mb-3">
 					{% for producto in productos %}
 					<div class="col-md-4 col-sm-6 mb-3">
@@ -38,7 +36,7 @@
 								</p>
 								<h3 class="titulo-producto text-center">{{producto.precio}}</h3>
 								<div class="d-grid gap-2">
-									<a href="{% url 'muestra_producto' %}" class="btn btn-dark btn-lg btn-block">Comprar</a>
+									<a href="{% url 'muestra_producto' producto.idProducto %}" class="btn btn-dark btn-lg btn-block">Comprar</a>
 								</div>
 						</div>
 					</div>

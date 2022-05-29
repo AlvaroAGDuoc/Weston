@@ -4,22 +4,19 @@
 
 {% block content %}
 		<div class="container">
+
+
 			<div class="row">
 				<div class="col-md-6 col-sm-12 mt-3 mb-3">
-					<img src="img/cocina.jpg" class="img-thumbnail" alt="..." />
+					<img src="{{producto.imagen.url}}" class="img-thumbnail" alt="..." />
 				</div>
 				<div class="col-md-6 col-sm-12 mt-3 mb-3">
 					<div class="row px-3">
-						<h3>Cocina blanca</h3>
-						<h5 class="titulo-producto">$5.000</h5>
-						<h5>Descripción</h5>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis
-							quibusdam, officiis eum sit, velit dolore voluptas, quae soluta
-							totam itaque cum tenetur id libero dolorem consequatur culpa
-							impedit beatae quia.
-						</p>
-						<h5 class="titulo-producto">5 Disponibles</h5>
+						<h3>{{producto.nombre}}</h3>
+						<h5 class="titulo-producto">${{producto.precio}}</h5>
+						<h5>{{producto.descripcion}}</h5>
+						<p></p>
+						<h5 class="titulo-producto">{{producto.stock}} Disponibles</h5>
 						<b>Seleccionar Cantidad</b>
 						<div class="form-outline">
 							<input

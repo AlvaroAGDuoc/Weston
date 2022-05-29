@@ -7,7 +7,17 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 def inicio(request):
-    return render(request, 'app/index.html')
+    productoInicio = Producto.objects.filter(stock__gte = 1, status = '3', precio__lte = 5000)
+    paginator = Paginator(productoInicio, 1)
+
+    page = request.GET.get("page") or 1   
+    productos = paginator.get_page(page)
+
+    contexto = {
+        "productos": productos,
+        'paginator': paginator
+    }
+    return render(request, 'app/index.html', contexto)
 
 def login(request):
     return render(request, 'app/login.html')
@@ -87,14 +97,21 @@ def contrasena_olvidada(request):
 def carrito(request):
     return render(request, 'app/carrito_compras.html')
 
-def muestra_producto(request):
-    return render(request, 'app/muestra_producto.html')
 
 def perfil(request):
     return render(request, 'app/perfil_usuario.html')
 
 def editar_usuario(request):
     return render(request, 'app/editar_usuario.html')
+
+def muestra_producto(request, id):
+    producto = Producto.objects.get(idProducto = id)
+
+    contexto = {
+        "producto": producto
+    }
+
+    return render(request, 'app/muestra_producto.html', contexto)
 
 def cambiar_contrasena(request):
     return render(request, 'app/cambiar_contrasena.html')
@@ -122,7 +139,6 @@ def registrar_p(request):
     status2 = Status.objects.get(idStatus = status)
     Producto.objects.create(nombre=nombre, precio= precio, imagen= imagen, categoria= cat2, stock= stock, descripcion = descripcion, status = status2)
     return redirect('form_agregar')
-
 
 
 def lista_usuarios(request):

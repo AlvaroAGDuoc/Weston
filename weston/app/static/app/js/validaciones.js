@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+	
+
 	/* Validaciones registro*/
 	$('#form_reg').submit(function (e) {
 		
@@ -112,6 +114,12 @@ $(document).ready(function () {
 		if (entrar) {
 			
 			$('#warnings').html(mensaje);
+			Swal.fire({
+				titleText: "Hola",
+				text: "Mensaje de prueba",
+				icon: "success",
+				confirmButtonText: "OK",
+			});
 		} else {
 			$('#warnings').html('Registrado correctamente');
 		}
