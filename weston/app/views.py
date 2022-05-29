@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Categoria, Producto, Region, Comuna, Usuario
+from .models import Categoria, Producto, Region, Comuna, Rol, Usuario, Direccion, Status
 from django.contrib import messages
 
 # Create your views here.
@@ -23,10 +23,13 @@ def enviar_registro(request):
     comuna = request.POST['comuna']
     celu = request.POST['telefono']
     contrasena = request.POST['contrasena']
-
+    rol = 1
 
     com2 = Comuna.objects.get(idComuna = comuna)
-    Usuario.objects.create(nombre=nombre, email=email, direccion=direccion, comuna=com2, telefono=celu, clave=contrasena)
+    rol2 = Rol.objects.get(idRol = rol)
+
+    Usuario.objects.create(nombre=nombre, email=email, clave=contrasena, telefono=celu, rol=rol2)
+    Direccion.objects.create(descripcion=direccion, comuna=com2) 
     return redirect('registro')
 
 def producto_cocina(request):
@@ -76,9 +79,11 @@ def registrar_p(request):
     categoria = request.POST['categoria']
     stock = request.POST['stock']
     descripcion = request.POST['descripcion']
+    status = 1
 
     cat2 = Categoria.objects.get(idCategoria = categoria)
-    Producto.objects.create(nombre=nombre, precio= precio, imagen= imagen, categoria= cat2, stock= stock, descripcion = descripcion)
+    status2 = Status.objects.get(idStatus = status)
+    Producto.objects.create(nombre=nombre, precio= precio, imagen= imagen, categoria= cat2, stock= stock, descripcion = descripcion, status = status2)
     return redirect('form_agregar')
 
 
@@ -137,11 +142,7 @@ def modificar_p(request):
         categoria_p2 = Categoria.objects.get(idCategoria = categoria)
 
         producto.categoria = categoria_p2
-        producto.save()
-
-    
-
-    
+        producto.save() 
 
     messages.success(request, 'Producto Modificado')
     return redirect('menu_admin')
