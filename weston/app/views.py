@@ -79,7 +79,7 @@ def registrar_p(request):
     categoria = request.POST['categoria']
     stock = request.POST['stock']
     descripcion = request.POST['descripcion']
-    status = 1
+    status = 3
 
     cat2 = Categoria.objects.get(idCategoria = categoria)
     status2 = Status.objects.get(idStatus = status)
