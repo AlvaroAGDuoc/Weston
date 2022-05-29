@@ -16,172 +16,41 @@
 
 		<div class="container">
 			<h1 class="texto-principal text-center mb-3 mt-3">Libreros</h1>
-			<hr />
-			<div class="row mb-3">
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						<img
-							class="card-img-top"
-							src="img/libreria.jpg"
-							alt="Card image"
-							style="width: 100%"
-						/>
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Librero</h4>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
-							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
-							<div class="d-grid gap-2">
-								<a
-									href="muestra_producto.html"
-									class="btn btn-dark btn-lg btn-block"
-									>Comprar</a
-								>
+				<hr />
+				
+					<hr />
+					<div class="row mb-3">
+						{% for producto in productos %}
+						<div class="col-md-4 col-sm-6 mb-3">
+							<div class="card shadow bg-light">
+								{% if producto.imagen %}
+								<img
+									class="card-img-top"
+									src="{{producto.imagen.url}}"
+									alt="{{producto.nombre}}"
+									style="width: 100%"
+								/>
+								{% endif %}
+								<div class="card-body">
+									<h4 class="card-title titulo-producto text-center">{{producto.nombre}}</h4>
+									<p class="card-text">
+										{{producto.descripcion}}
+									</p>
+									<h3 class="titulo-producto text-center">{{producto.precio}}</h3>
+									<div class="d-grid gap-2">
+										<a href="{% url 'muestra_producto' %}" class="btn btn-dark btn-lg btn-block">Comprar</a>
+									</div>
 							</div>
 						</div>
 					</div>
+					{% endfor %}
 				</div>
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						<img
-							class="card-img-top"
-							src="img/libreria.jpg"
-							alt="Card image"
-							style="width: 100%"
-						/>
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Librero</h4>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
-							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
-							<div class="d-grid gap-2">
-								<a
-									href="muestra_producto.html"
-									class="btn btn-dark btn-lg btn-block"
-									>Comprar</a
-								>
-							</div>
-						</div>
-					</div>
+	
+				<div>
+					{% include 'app/paginator.html' %}
 				</div>
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						<img
-							class="card-img-top"
-							src="img/libreria.jpg"
-							alt="Card image"
-							style="width: 100%"
-						/>
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Librero</h4>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
-							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
-							<div class="d-grid gap-2">
-								<a
-									href="muestra_producto.html"
-									class="btn btn-dark btn-lg btn-block"
-									>Comprar</a
-								>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						<img
-							class="card-img-top"
-							src="img/libreria.jpg"
-							alt="Card image"
-							style="width: 100%"
-						/>
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Librero</h4>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
-							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
-							<div class="d-grid gap-2">
-								<a
-									href="muestra_producto.html"
-									class="btn btn-dark btn-lg btn-block"
-									>Comprar</a
-								>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						<img
-							class="card-img-top"
-							src="img/libreria.jpg"
-							alt="Card image"
-							style="width: 100%"
-						/>
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Librero</h4>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
-							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
-							<div class="d-grid gap-2">
-								<a
-									href="muestra_producto.html"
-									class="btn btn-dark btn-lg btn-block"
-									>Comprar</a
-								>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						<img
-							class="card-img-top"
-							src="img/libreria.jpg"
-							alt="Card image"
-							style="width: 100%"
-						/>
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">Librero</h4>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-								dolores molestiae illum perspiciatis suscipit officia fugit
-								corrupti vero totam. Fuga porro nesciunt ratione, ipsum
-								veritatis commodi ea ut inventore nihil!
-							</p>
-							<h3 class="titulo-producto text-center">$5.000</h3>
-							<div class="d-grid gap-2">
-								<a
-									href="muestra_producto.html"
-									class="btn btn-dark btn-lg btn-block"
-									>Comprar</a
-								>
-							</div>
-						</div>
-					</div>
-				</div>
+	
 			</div>
-		</div>
+	
 
 {% endblock %}		

@@ -4,63 +4,40 @@
 
 {% block content %}
 		<!--CONTENIDO-->
-		<div class="container mt-3">
-			<h2 class="texto-principal text-center">Lista de usuarios registrados</h2>
-			<div style="overflow-x:auto;">
-				<table class="table table-striped" >
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nombre completo</th>
-							<th>Email</th>
-							<th>Direccion</th>
-							<th>Comuna</th>
-							<th>Contacto</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>John</td>
-							<td>john@example.com</td>
-							<td>Calle falsa 123</td>
-							<td>Huechuraba</td>
-							<td>9 4343 4343</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>Juan</td>
-							<td>jahn@example.com</td>
-							<td>Calle falsa 123</td>
-							<td>Huechuraba</td>
-							<td>9 4343 4343</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>John</td>
-							<td>john@example.com</td>
-							<td>Calle falsa 123</td>
-							<td>Huechuraba</td>
-							<td>9 4343 4343</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>John</td>
-							<td>john@example.com</td>
-							<td>Calle falsa 123</td>
-							<td>Huechuraba</td>
-							<td>9 4343 4343</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>John</td>
-							<td>john@example.com</td>
-							<td>Calle falsa 123</td>
-							<td>Huechuraba</td>
-							<td>9 4343 4343</td>
-						</tr>
-					</tbody>
-				</table>}
+		<div class="container">
+			
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<h2 class="texto-principal text-center">Lista de usuarios registrados</h2>
+					<div class="table-responsive">
+						<table class="table table-dark table-striped">
+							<thead>
+								<th>Nombre</th>
+								<th>Email</th>
+								<th>Telefono</th>
+								<th>Direccion</th>			
+								<th>Comuna</th>					
+							</thead>
+							<tbody>
+								{% for direcc in direccion %}
+										
+									<tr>
+										<td>{{direcc.usuario.nombre}}</td>		
+										<td>{{direcc.usuario.email}}</td>		
+										<td>{{direcc.usuario.telefono}}</td>
+										<td>{{direcc.descripcion}}</td>										
+										<td>{{direcc.comuna.nombre}}</td>										
+									</tr>						
+								{% endfor %}								
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-md-2"></div>
 			</div>
 		</div>
+
+			
 {% endblock %}

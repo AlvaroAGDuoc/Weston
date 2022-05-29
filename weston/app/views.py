@@ -1,6 +1,8 @@
+from django.http import Http404
 from django.shortcuts import render, redirect
 from .models import Categoria, Producto, Region, Comuna, Rol, Usuario, Direccion, Status
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -26,20 +28,55 @@ def enviar_registro(request):
     rol = 1
 
     com2 = Comuna.objects.get(idComuna = comuna)
-    rol2 = Rol.objects.get(idRol = rol)
+    rol2 = Rol.objects.get(idRol = rol)  
 
     Usuario.objects.create(nombre=nombre, email=email, clave=contrasena, telefono=celu, rol=rol2)
-    Direccion.objects.create(descripcion=direccion, comuna=com2) 
-    return redirect('registro')
+
+    usuarioNuevo = Usuario.objects.get(email = email)
+
+    Direccion.objects.create(descripcion=direccion, comuna=com2, usuario= usuarioNuevo) 
+    return redirect('login')
 
 def producto_cocina(request):
-    return render(request, 'app/producto_cocina.html')
+    productoCocina = Producto.objects.filter(categoria='3', stock__gte = 1, status = '3')
+    paginator = Paginator(productoCocina, 1)
+
+    page = request.GET.get("page") or 1   
+    productos = paginator.get_page(page)
+
+
+    contexto = {
+        "productos": productos,
+        'paginator': paginator
+    }
+
+    return render(request, 'app/producto_cocina.html', contexto)
 
 def producto_libreros(request):
-    return render(request, 'app/producto_libreros.html')
+    productoLibreros = Producto.objects.filter(categoria='2', stock__gte = 1, status = '3')
+    paginator = Paginator(productoLibreros, 1)
+
+    page = request.GET.get("page") or 1   
+    productos = paginator.get_page(page)
+
+    contexto = {
+        "productos": productos,
+        'paginator': paginator
+    }
+    return render(request, 'app/producto_libreros.html', contexto)
 
 def producto_muebles(request):
-    return render(request, 'app/producto_muebles.html')
+    productoMuebles = Producto.objects.filter(categoria='1', stock__gte = 1, status = '3')
+    paginator = Paginator(productoMuebles, 1)
+
+    page = request.GET.get("page") or 1   
+    productos = paginator.get_page(page)
+
+    contexto = {
+        "productos": productos,
+        'paginator': paginator
+    }
+    return render(request, 'app/producto_muebles.html', contexto)
 
 def contacto(request):
     return render(request, 'app/contacto.html')
@@ -63,8 +100,8 @@ def cambiar_contrasena(request):
     return render(request, 'app/cambiar_contrasena.html')
 
 def menu_admin(request):
-    productos = Producto.objects.all()
-    contexto = {"producto": productos}
+    producto = Producto.objects.all()
+    contexto = {"productos": producto,}
     return render(request, 'app/admin.html',contexto)
 
 def form_agregar(request):
@@ -89,7 +126,15 @@ def registrar_p(request):
 
 
 def lista_usuarios(request):
-    return render(request, 'app/lista_usuarios.html')
+    usuariosWeb = Usuario.objects.all()
+    direccionUsuario = Direccion.objects.all()
+    region = Region.objects.all()
+    contexto = {
+        "usuarios": usuariosWeb,
+        "direccion": direccionUsuario,
+        "region": region,
+    }
+    return render(request, 'app/lista_usuarios.html', contexto)
 
 def modificar_producto(request, id):
     producto1 = Producto.objects.get(idProducto = id) # obtengo los datos del producto

@@ -39,7 +39,7 @@ class Rol(models.Model):
 class Usuario(models.Model):
     idUsuario = models.AutoField(primary_key=True, verbose_name="Id del usuario")
     nombre =  models.CharField(max_length=40, verbose_name="Nombre del usuario",null=True, blank=False)
-    email =  models.EmailField(max_length=50, verbose_name="Email del usuario")
+    email =  models.EmailField(max_length=50, verbose_name="Email del usuario", unique=True)
     clave = models.CharField(max_length=30, verbose_name="Clave del usuario", null=True, blank=False)
     telefono = models.IntegerField(verbose_name="Telefono del usuario")
     rol = models.ForeignKey(Rol, on_delete=models.PROTECT)
