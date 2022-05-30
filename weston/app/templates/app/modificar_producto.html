@@ -10,8 +10,8 @@
 			<hr />
 			<form action="{% url 'modificar_p' %}" method="POST" enctype="multipart/form-data" class="row g-3" id="form_modprod">
 				{% csrf_token %}
-				<div class="col-md-6">
-					<label class="form-label">ID Producto</label>
+				<div class="form-group col-md-6">
+					<h5>ID Producto</h5>
 					<input
 						name="idP"
 						type="text"
@@ -22,8 +22,8 @@
 						readonly
 					/>
 				</div>
-				<div class="col-md-6">
-					<label class="form-label">Nombre del producto</label>
+				<div class="form-group col-md-6">
+					<h5>Nombre del producto</h5>
 					<input
 						name="nombre"
 						type="text"
@@ -33,8 +33,8 @@
 						required
 					/>
 				</div>
-				<div class="col-md-6">
-					<label class="form-label">Precio</label>
+				<div class="form-group col-md-6">
+					<h5>Precio</h5>
 					<input
 						name="precio"
 						type="number"
@@ -44,11 +44,8 @@
 						required
 					/>
 				</div>
-				<div class="mb-3">
-					<label  for="formFile" class="form-label">Agregar imagen</label>
-					<input name="foto" class="form-control" type="file" id="formFile" />
-				</div>
-				<div class="form-group">
+
+				<div class="form-group col-md-6">
 					<h5>Categoria</h5>
 					<select class="form-control" name="categoria" id="categoria">
 						{% for i in categoria %}
@@ -60,8 +57,14 @@
 						{% endfor %}
 					</select>
 				</div>
-				<div class="col-md-3">
-					<label class="form-label">Stock</label>
+
+				<div class="form-group col-md-6">
+					<h5>Agregar imagen</h5>
+					<input name="foto" class="form-control" type="file" id="formFile" />
+				</div>
+				
+				<div class="form-group col-md-6">
+					<h5>Stock</h5>
 					<input
 						type="number"
 						class="form-control"
@@ -71,14 +74,16 @@
 						required
 					/>
 				</div>
-				<label for="floatingTextarea2">Descripción del producto</label>
-				<textarea
-					class="form-control"	
-					style="height: 100px"
-					id="descripcion"
-					name="descripcion"
-					required
-				>{{producto.descripcion}}</textarea>
+				<div class="form-group">
+					<h5>Descripción del producto</h5>
+					<textarea
+						class="form-control"	
+						style="height: 85px"
+						id="descripcion"
+						name="descripcion"
+						required
+					>{{producto.descripcion}}</textarea>
+				</div>
 				<div class="col-12">
 					<button type="submit" class="btn btn-dark">Agregar</button>
 					<a href="admin.html">

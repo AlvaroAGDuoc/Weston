@@ -25,10 +25,10 @@
 					<div class="card shadow bg-light">
 						{% if p.imagen %}
 						<img
-							class="card-img-top"
+							class="imagenProducto"
 							src="{{p.imagen.url}}"
 							alt="{{p.nombre}}"
-							style="width: 100%"
+							
 						/>
 						{% endif %}
 						<div class="card-body">
@@ -36,10 +36,10 @@
 							<p class="card-text">
 								{{p.descripcion}}
 							</p>
-							<h3 class="titulo-producto text-center">{{p.precio}}</h3>
+							<h3 class="titulo-producto text-center">${{p.precio}}</h3>
 							<div class="d-grid gap-2">
 								<a href="{% url 'modificar_producto' p.idProducto %}" class="btn btn-dark">Editar</a>
-								<a href="{% url 'eliminar_producto' p.idProducto %}" class="btn btn-dark">Eliminar</a>
+								<a href="{% url 'eliminar_producto' p.idProducto %}" class="btn btn-dark">Estado</a>
 							</div>
 					</div>
 				</div>

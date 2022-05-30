@@ -47,7 +47,7 @@
 				<div class="collapse navbar-collapse" id="mynavbar">
 					<ul class="navbar-nav me-auto">
 						<li class="nav-item">
-							<a class="nav-link active fs-6" href="index.html">Inicio</a>
+							<a class="nav-link active fs-6" href="{% url 'inicio'%}">Inicio</a>
 						</li>
 						<li class="nav-item dropdown">
 							<!--BOTON PARA DESPLEGAR TIPOS DE PRODUCTOS-->
@@ -67,17 +67,17 @@
 								aria-labelledby="navbarDropdownMenuLink"
 							>
 								<li>
-									<a class="dropdown-item" href="producto_cocina.html"
+									<a class="dropdown-item" href="{% url 'cocina'%}"
 										>Cocina</a
 									>
 								</li>
 								<li>
-									<a class="dropdown-item" href="producto_muebles.html"
+									<a class="dropdown-item" href="{% url 'muebles'%}"
 										>Muebles</a
 									>
 								</li>
 								<li>
-									<a class="dropdown-item" href="producto_libreros.html"
+									<a class="dropdown-item" href="{% url 'libreros'%}"
 										>Libreros</a
 									>
 								</li>
@@ -146,7 +146,8 @@
 						</li>
 						<li>
 							<p>
-								<a href="#" class="text-reset">Términos y condiciones</a>
+								<a href="https://ripley.zendesk.com/hc/es-419/sections/360008193453-TÃ©rminos-y-Condiciones-Ripley-com"
+								 class="text-reset">Términos y condiciones</a>
 							</p>
 						</li>
 						<li>
@@ -191,7 +192,7 @@
 				</nav>
 			</div>
 		</footer>
-
+		<script src="https://kit.fontawesome.com/35113f2a50.js"crossorigin="anonymous"></script>
 		<script src="{% static 'app/js/validaciones.js' %}"></script>
 		<script src="{% static 'app/js/lista.js' %}"></script>
 	</body>

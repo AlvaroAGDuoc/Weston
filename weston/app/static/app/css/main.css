@@ -6,20 +6,6 @@ body {
 	background-color: #fafff0;
 }
 
-.alert {
-	z-index: 100;
-}
-
-.card-border {
-	border: solid 10px white;
-	border-radius: 20px;
-	overflow: hidden;
-	transition: all ease-out 0.2s;
-}
-
-.card-border:hover {
-	transform: scale(1.02);
-}
 
 .carrito {
 	min-height: 80vh;
@@ -57,8 +43,9 @@ footer {
 	padding: 50px 20px;
 }
 
-.imagen {
-	border-radius: 50%;
+.imagenProducto{
+	height: 300px;
+	width: 300px;
 }
 
 .texto-principal {
@@ -79,4 +66,33 @@ footer {
 	padding-top: 5px;
 	padding-bottom: 10px;
 	font-weight: bold;
+}
+
+.pagination > li > a
+{
+    background-color: rgb(250, 255, 233);
+    color: #5A4181;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #a4b607;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: rgb(255, 255, 255);
+    background-color: #e0a901 !Important;
+    border: solid 1px #e0a901 !Important;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: #e0a901 !Important;
+    border: solid 1px #e0a901;
 }
