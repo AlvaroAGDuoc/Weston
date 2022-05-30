@@ -1,4 +1,3 @@
-from django.http import Http404
 from django.shortcuts import render, redirect
 from .models import Categoria, Producto, Region, Comuna, Rol, Usuario, Direccion, Status
 from django.contrib import messages
@@ -160,7 +159,6 @@ def modificar_producto(request, id):
         "producto" : producto1,
         "categoria" : cat1
     }
-
 
     return render(request, 'app/modificar_producto.html',contexto)
 
