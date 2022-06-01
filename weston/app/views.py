@@ -18,7 +18,9 @@ def inicio(request):
     }
     return render(request, 'app/index.html', contexto)
 
+
 def login(request):
+    
     return render(request, 'app/login.html')
 
 def registro(request):
@@ -48,7 +50,7 @@ def enviar_registro(request):
 
 def producto_cocina(request):
     productoCocina = Producto.objects.filter(categoria='3', stock__gte = 1, status = '3')
-    paginator = Paginator(productoCocina, 1)
+    paginator = Paginator(productoCocina, 6)
 
     page = request.GET.get("page") or 1   
     productos = paginator.get_page(page)
@@ -63,7 +65,7 @@ def producto_cocina(request):
 
 def producto_libreros(request):
     productoLibreros = Producto.objects.filter(categoria='2', stock__gte = 1, status = '3')
-    paginator = Paginator(productoLibreros, 1)
+    paginator = Paginator(productoLibreros, 6)
 
     page = request.GET.get("page") or 1   
     productos = paginator.get_page(page)
@@ -76,7 +78,7 @@ def producto_libreros(request):
 
 def producto_muebles(request):
     productoMuebles = Producto.objects.filter(categoria='1', stock__gte = 1, status = '3')
-    paginator = Paginator(productoMuebles, 1)
+    paginator = Paginator(productoMuebles, 6)
 
     page = request.GET.get("page") or 1   
     productos = paginator.get_page(page)
@@ -131,12 +133,14 @@ def registrar_p(request):
     imagen = request.FILES['foto']
     categoria = request.POST['categoria']
     stock = request.POST['stock']
+    descripcionCorta = request.POST['descripcionCorta']
     descripcion = request.POST['descripcion']
+    
     status = 3
 
     cat2 = Categoria.objects.get(idCategoria = categoria)
     status2 = Status.objects.get(idStatus = status)
-    Producto.objects.create(nombre=nombre, precio= precio, imagen= imagen, categoria= cat2, stock= stock, descripcion = descripcion, status = status2)
+    Producto.objects.create(nombre=nombre, precio= precio, imagen= imagen, categoria= cat2, stock= stock, descripcionCorta = descripcionCorta, descripcion = descripcion,  status = status2)
     return redirect('form_agregar')
 
 
@@ -168,7 +172,9 @@ def modificar_p(request):
     precio = request.POST['precio']
     categoria = request.POST['categoria']
     stock = request.POST['stock']
+    descripcionCorta = request.POST['descripcionCorta']
     descripcion = request.POST['descripcion']
+    
     try:
         imagen = request.FILES['foto']
         cat2 = Categoria.objects.get(idCategoria = categoria)
@@ -180,8 +186,9 @@ def modificar_p(request):
         producto.imagen = imagen
         producto.categoria = cat2
         producto.stock = stock
+        producto.descripcionCorta = descripcionCorta
         producto.descripcion = descripcion
-
+        
         categoria_p2 = Categoria.objects.get(idCategoria = categoria)
 
         producto.categoria = categoria_p2
@@ -196,6 +203,7 @@ def modificar_p(request):
     
         producto.categoria = cat2
         producto.stock = stock
+        producto.descripcionCorta = descripcionCorta
         producto.descripcion = descripcion
 
         categoria_p2 = Categoria.objects.get(idCategoria = categoria)

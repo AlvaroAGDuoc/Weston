@@ -57,15 +57,24 @@ producto {%endblock %} {% block content %}
 			<input class="form-control" type="file" id="formFile" name="foto" required />
 		</div>
 
-		
+		<div class="form-group">
+			<h5>Descripción corta del producto</h5>
+			<textarea
+				class="form-control"
+				placeholder="Escriba la descripción corta del producto aquí..."
+				id="descripcionCorta"
+				name="descripcionCorta"
+				style="height: 85px"
+				required
+			></textarea>
+		</div>	
 
-		
 		<div class="form-group">
 			<h5>Descripción del producto</h5>
 			<textarea
 				class="form-control"
 				placeholder="Escriba la descripción del producto aquí..."
-				id="desc_prod"
+				id="descripcion"
 				name="descripcion"
 				style="height: 85px"
 				required

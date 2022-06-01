@@ -22,7 +22,9 @@ class Producto(models.Model):
     imagen = models.ImageField(upload_to="productos", null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     stock = models.IntegerField(verbose_name="Stock del producto", null=True, blank= False)
+    descripcionCorta = models.TextField(null=True, blank= False, verbose_name="Descripcion corta del producto")
     descripcion = models.TextField(null=True, blank= False, verbose_name="Descripcion del producto")
+    
     status = models.ForeignKey(Status, on_delete=models.PROTECT)
 
     def __str__(self):

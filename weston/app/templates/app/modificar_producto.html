@@ -74,6 +74,18 @@
 						required
 					/>
 				</div>
+
+				<div class="form-group">
+					<h5>Descripción corta del producto</h5>
+					<textarea
+						class="form-control"	
+						style="height: 55px"
+						id="descripcionCorta"
+						name="descripcionCorta"
+						required
+					>{{producto.descripcionCorta}}</textarea>
+				</div>
+
 				<div class="form-group">
 					<h5>Descripción del producto</h5>
 					<textarea
@@ -86,7 +98,7 @@
 				</div>
 				<div class="col-12">
 					<button type="submit" class="btn btn-dark">Agregar</button>
-					<a href="admin.html">
+					<a href="{% url 'menu_admin'%}">
 					<button type="button" class="btn btn-dark">Deshacer</button></a>
 				</div>
 				<p id="warnings" class="text-center"></p>

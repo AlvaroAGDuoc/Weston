@@ -6,7 +6,6 @@ body {
 	background-color: #fafff0;
 }
 
-
 .carrito {
 	min-height: 80vh;
 	margin: 0 auto;
@@ -44,8 +43,8 @@ footer {
 }
 
 .imagenProducto{
-	height: 300px;
-	width: 300px;
+	height: 20rem;
+	width: 20rem;
 }
 
 .texto-principal {

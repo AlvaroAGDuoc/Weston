@@ -127,7 +127,7 @@ $(document).ready(function () {
 
 	/*Validacion formulario contacto usuario no logeado */
 	$('#form-cont').submit(function (e) {
-		e.preventDefault();
+		
 		var nombre = $('#nombre_cont').val();
 		var correo = $('#correo_cont').val();
 		var asunto = $('#msj_cont').val();
@@ -140,11 +140,13 @@ $(document).ready(function () {
 		if (nombre.trim().length < 3 || nombre.trim().length > 25) {
 			mensaje += 'El nombre no es valido. <br>';
 			entrar = true;
+			e.preventDefault();
 		}
 
 		if(/[0-9]/.test(nombre)){
             mensaje += "El nombre no puede tener digitos. <br>"
             entrar = true;
+			e.preventDefault();
         }
 
 		//NO ESTOY MUY SEGURO DE ESTA VALIDACION PERO POR LO QUE EH PROBADO SIRVE
@@ -286,7 +288,8 @@ $(document).ready(function () {
 		
 		var nombre = $('#nombre_prod').val();
 		var precio = $('#precio_prod').val();
-		var descripcion = $('#desc_prod').val();
+		var descripcion = $('#descripcion').val();
+		var descripcionCorta = $('#descripcionCorta').val();
 		var categoria = $('#categoria').val();
 		var mensaje = '';
 
@@ -296,11 +299,13 @@ $(document).ready(function () {
 		if (nombre.trim().length < 4 || nombre.trim().length > 25) {
 			mensaje += 'El nombre del producto debe tener 4 caracteres como mínimo y máximo 25. <br>';
 			entrar = true;
+			e.preventDefault();
 		}
 
 		if(/[0-9]/.test(nombre)){
             mensaje += "El nombre del producto no puede tener digitos. <br>"
             entrar = true;
+			e.preventDefault();
         }
 
 		//NO ESTOY MUY SEGURO DE ESTA VALIDACION PERO POR LO QUE EH PROBADO SIRVE
@@ -309,6 +314,7 @@ $(document).ready(function () {
 		}else{
 			mensaje += "El nombre del producto debe tener la primera letra Mayuscula. <br>"
             entrar = true;
+			e.preventDefault();
 		}
 		//FIN VALIDACIONES NOMBRE
 
@@ -318,6 +324,7 @@ $(document).ready(function () {
 		if (precio <= 0) {
 			mensaje += 'El precio debe ser mayor a 0.<br>';
 			entrar = true;
+			e.preventDefault();
 		}
 		//FIN VALIDACIONES PRECIO
 
@@ -327,6 +334,7 @@ $(document).ready(function () {
 		if (descripcion.length < 10 || descripcion.length > 120) {
 			mensaje += 'La descripción debe ser mayor a 10 y menor a 120 caracteres.<br>';
 			entrar = true;
+			e.preventDefault();
 		}
 
 		//NO ESTOY MUY SEGURO DE ESTA VALIDACION PERO POR LO QUE EH PROBADO SIRVE
@@ -335,11 +343,30 @@ $(document).ready(function () {
 		}else{
 			mensaje += "La descripción del producto debe tener la primera letra Mayuscula. <br>"
             entrar = true;
+			e.preventDefault();
 		}
 		//FIN VALIDACIONES DESCRIPCION
 
 		//-----------------------//
-	
+		
+		//VALIDACIONES DESCRIPCION CORTA
+		if (descripcionCorta.length < 10 || descripcionCorta.length > 20) {
+			mensaje += 'La descripción corta debe ser mayor a 10 y menor a 20 caracteres.<br>';
+			entrar = true;
+			e.preventDefault();
+		}
+
+		//NO ESTOY MUY SEGURO DE ESTA VALIDACION PERO POR LO QUE EH PROBADO SIRVE
+		if(descripcionCorta.charAt(0) === (descripcionCorta.charAt(0).toUpperCase())){
+
+		}else{
+			mensaje += "La descripción corta del producto debe tener la primera letra Mayuscula. <br>"
+            entrar = true;
+			e.preventDefault();
+		}
+		//FIN VALIDACIONES descripcionCorta
+
+		//-----------------------//
 
 		if (entrar) {
 			$('#warnings').html(mensaje);
@@ -355,7 +382,7 @@ $(document).ready(function () {
 		var nombre = $('#nombre').val();
 		var precio = $('#precio').val();
 		var descripcion = $('#descripcion').val();
-
+		var descripcionCorta = $('#descripcionCorta').val();
 		var mensaje = '';
 
 		let entrar = false;
@@ -411,6 +438,23 @@ $(document).ready(function () {
 			e.preventDefault();
 		}
 		//FIN VALIDACIONES DESCRIPCION
+
+		//VALIDACIONES DESCRIPCION CORTA
+		if (descripcionCorta.length < 10 || descripcionCorta.length > 20) {
+			mensaje += 'La descripción corta debe ser mayor a 10 y menor a 20 caracteres.<br>';
+			entrar = true;
+			e.preventDefault();
+		}
+
+		//NO ESTOY MUY SEGURO DE ESTA VALIDACION PERO POR LO QUE EH PROBADO SIRVE
+		if(descripcionCorta.charAt(0) === (descripcionCorta.charAt(0).toUpperCase())){
+
+		}else{
+			mensaje += "La descripción corta del producto debe tener la primera letra Mayuscula. <br>"
+            entrar = true;
+			e.preventDefault();
+		}
+		//FIN VALIDACIONES descripcionCorta
 
 		//-----------------------//
 
