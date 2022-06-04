@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Categoria, Producto, Region, Comuna, Rol, Usuario, Direccion, Status
+from .models import Categoria, Producto, Region, Comuna, Rol, Direccion, Status
 from django.contrib import messages
 from django.core.paginator import Paginator
 
@@ -23,30 +23,23 @@ def login(request):
     
     return render(request, 'app/login.html')
 
-def registro(request):
-    regiones = Region.objects.all()
-    comunas = Comuna.objects.all()
-    contexto = {"reg": regiones, "com": comunas}
-    return render(request, 'app/registro.html', contexto)
+def login_view(request):
+    login_form = UserLoginForm(request.POST or None)
+    if login_form.is_valid():
+        email = login_form.cleaned_data.get('email')
+        password = login_form.cleaned_data.get('password')
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Has iniciado sesion correctamente')
+            return redirect('network:home')
+        else:
+            messages.warning(
+                request, 'Correo Electronico o Contrasena invalida')
+            return redirect('network:home')
 
-def enviar_registro(request):
-    nombre = request.POST['nombre']
-    email = request.POST['email']
-    direccion = request.POST['direccion']
-    comuna = request.POST['comuna']
-    celu = request.POST['telefono']
-    contrasena = request.POST['contrasena']
-    rol = 1
-
-    com2 = Comuna.objects.get(idComuna = comuna)
-    rol2 = Rol.objects.get(idRol = rol)  
-
-    Usuario.objects.create(nombre=nombre, email=email, clave=contrasena, telefono=celu, rol=rol2)
-
-    usuarioNuevo = Usuario.objects.get(email = email)
-
-    Direccion.objects.create(descripcion=direccion, comuna=com2, usuario= usuarioNuevo) 
-    return redirect('login')
+    messages.error(request, 'Formulario Invalido')
+    return redirect('network:home')
 
 def producto_cocina(request):
     productoCocina = Producto.objects.filter(categoria='3', stock__gte = 1, status = '3')

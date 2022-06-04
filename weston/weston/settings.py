@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'app',
 ]
 
+AUTH_USER_MODEL = 'app.Usuario' # CAMBIA EL MODELO PREDIFINIDO DE DJANGO POR EL DE NOSOTROS
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -78,7 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': '127.0.0.1:1521/orcl',
-        'USER': 'westonadm',
+        'USER': 'weston',
         'PASSWORD': 'admin123',
         'TEST': {
             'USER': 'default_test',

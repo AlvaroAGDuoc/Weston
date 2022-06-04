@@ -3,56 +3,19 @@
 {% block title %} Weston {%endblock %} 
 
 {% block content %}
-		<div class="container">
-			<form method="POST" enctype="multipart/form-data" id="form_login">
-				{% csrf_token %}
-				<div class="row">
-					<div class="col-2 mt-3 mb-3"></div>
-					<div class="col-8 mt-3 mb-3">
-						<div class="row">
-							<h2 class="texto-principal text-center">Iniciar sesión</h2>
-							<hr />
-							<!--titulo-->
-							<h5>Correo Electronico</h5>
-							<input
-								type="email"
-								class="form-control mt-1 mb-2"
-								name="correo"
-								placeholder="example@example.com"
-							/>
+		
+<form id="register" class="text-center" action="{% url 'users:signup'%}" method="post">
+	{% csrf_token %}
+	<div class="form-outline form-auth-mdb mb-4">
+	  {{ signupForm.email}}
+	  <label class="form-label" style="margin-left: 0px;">Correo Electronico</label>
+	</div>
+	<div class="form-outline form-auth-mdb mb-4">
+		{{ signupForm.password}}
+		<label class="form-label" style="margin-left: 0px;">Contraseña</label>
+	</div>
+	
 
-							<!--titulo-->
-							<h5>Contraseña</h5>
-							<input
-								type="password"
-								class="form-control mb-3"
-								name="contrasena"
-								placeholder="*********"
-							/>
-							<div class="row">
-								<div class="col-sm-12 mb-3 col-md-6">
-									<div class="d-grid gap-2">
-										<button type="submit" class="btn btn-dark">
-											Iniciar sesion
-										</button>
-									</div>
-								</div>
-								<div class="col-sm-12 col-md-6 mb-3">
-									<div class="d-grid gap-2">
-										<a href="contraseña_olvidada.html" class="btn btn-dark">
-											Olvide mi contraseña
-										</a>
-									</div>
-								</div>
-							</div>
-							<p class="text-center">¿Aun no estas registrado?</p>
-							<a href="registro.html" class="text-center text-reset"
-								>Registrate aqui</a
-							>
-						</div>
-					</div>
-					<div class="col-2"></div>
-				</div>
-			</form>
-		</div>
+
+
 {%endblock %} 		
