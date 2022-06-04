@@ -1,0 +1,16 @@
+{% extends 'app/base.html' %} 
+{% load static %} 
+{% block title %} Registro {%endblock %} 
+
+{% block content %}
+		
+<div class="container">
+	<h1>Registro de usuario</h1>
+
+	<form action="" method="post">
+		{% csrf_token %}
+		{{form}}
+		<input type="submit" value="registrar">
+	</form>
+</div>
+{%endblock %} 		

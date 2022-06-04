@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Categoria, Producto, Region, Comuna, Rol, Direccion, Status
+from .models import Categoria, Producto, Region, Direccion, Status
 from django.contrib import messages
 from django.core.paginator import Paginator
+from .forms import RegistroUsuario
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
@@ -19,27 +21,23 @@ def inicio(request):
     return render(request, 'app/index.html', contexto)
 
 
-def login(request):
-    
-    return render(request, 'app/login.html')
+def registro(request):
+    data = {
+        'form': RegistroUsuario()
+    }
 
-def login_view(request):
-    login_form = UserLoginForm(request.POST or None)
-    if login_form.is_valid():
-        email = login_form.cleaned_data.get('email')
-        password = login_form.cleaned_data.get('password')
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
-            login(request, user)
-            messages.success(request, 'Has iniciado sesion correctamente')
-            return redirect('network:home')
-        else:
-            messages.warning(
-                request, 'Correo Electronico o Contrasena invalida')
-            return redirect('network:home')
+    if request.method == 'POST':
+        formulario = RegistroUsuario(data = request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            usuario = authenticate(email=formulario.cleaned_data['email'],
+             password = formulario.cleaned_data['password1'])
+            login(request, usuario)
+            return redirect(to="inicio")
+        data["form"] = formulario
+   
+    return render(request, 'registration/registro.html', data)
 
-    messages.error(request, 'Formulario Invalido')
-    return redirect('network:home')
 
 def producto_cocina(request):
     productoCocina = Producto.objects.filter(categoria='3', stock__gte = 1, status = '3')

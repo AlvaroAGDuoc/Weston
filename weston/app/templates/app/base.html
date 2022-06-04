@@ -83,6 +83,11 @@
 								</li>
 							</ul>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link active fs-6" href="{% url 'contacto'%}"
+								>Contacto</a
+							>
+						</li>
 					</ul>
 					<form class="d-flex">
 						<ul class="navbar-nav me-auto">
@@ -93,19 +98,25 @@
 										alt="logo carrito"
 								/></a>
 							</li>
+							
+							{% if  user.is_authenticated %}
 							<li class="nav-item">
-								<a class="nav-link active fs-6" href="{% url 'contacto'%}"
-									>Contacto</a
-								>
+								<a class="nav-link active fs-6" href="{% url 'logout'%}">{{user.nombre}}</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link active fs-6" href="{% url 'logout'%}">Salir</a>
+							</li>
+							{% else %}
 							<li class="nav-item">
 								<a class="nav-link active fs-6" href="{% url 'login'%}">Login</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active fs-6" href=""
+								<a class="nav-link active fs-6" href="{% url 'registro'%}"
 									>Registro</a
 								>
 							</li>
+							{% endif %}
+							
 						</ul>
 					</form>
 				</div>
