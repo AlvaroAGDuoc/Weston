@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'weston.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '127.0.0.1:1521/orcl',
+        'NAME': '127.0.0.1:1521/xe',
         'USER': 'weston',
         'PASSWORD': 'admin123',
         'TEST': {
