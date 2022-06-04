@@ -86,17 +86,17 @@ class Usuario(AbstractBaseUser):
 
     @property
     def is_staff(self):
-        "Es el usuario un miebro de staff?"
+        "Es el usuario un miembro de staff?"
         return self.staff
 
     @property
     def is_admin(self):
-        "Es el usuario un miebro admin?"
+        "Es el usuario un miembro admin?"
         return self.admin
 
     @property
     def is_active(self):
-        "Is the user a admin member?"
+        "Es el usuario un miembro activo?"
         return self.active
 
 # class Usuario(models.Model):

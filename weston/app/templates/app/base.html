@@ -24,6 +24,9 @@
 			type="text/css"
 			rel="stylesheet"
 		/>
+		<script type="text/javascript">
+			var user = '{{request.user}}'
+		</script>
 	</head>
 	<body class="fondo">
 		<!--BARRA NAV-->
@@ -92,7 +95,7 @@
 					<form class="d-flex">
 						<ul class="navbar-nav me-auto">
 							<li class="nav-item">
-								<a class="nav-link active" href="carrito_compras.html"
+								<a class="nav-link active" href="{% url 'carrito' %}"
 									><img
 										src="{% static 'app/img/carrito de compras.png' %}"
 										alt="logo carrito"
@@ -206,5 +209,7 @@
 		<script src="https://kit.fontawesome.com/35113f2a50.js"crossorigin="anonymous"></script>
 		<script src="{% static 'app/js/validaciones.js' %}"></script>
 		<script src="{% static 'app/js/lista.js' %}"></script>
+		<script type="text/javascript" src="{% static 'app/js/carrito.js' %}"></script>
+		
 	</body>
 </html>

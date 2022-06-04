@@ -31,7 +31,7 @@ def registro(request):
         if formulario.is_valid():
             formulario.save()
             usuario = authenticate(email=formulario.cleaned_data['email'],
-             password = formulario.cleaned_data['password1'])
+            password = formulario.cleaned_data['password1'])
             login(request, usuario)
             return redirect(to="inicio")
         data["form"] = formulario
@@ -40,7 +40,7 @@ def registro(request):
 
 
 def producto_cocina(request):
-    productoCocina = Producto.objects.filter(categoria='3', stock__gte = 1, status = '3')
+    productoCocina = Producto.objects.filter(categoria='1', stock__gte = 1, status = '1')
     paginator = Paginator(productoCocina, 6)
 
     page = request.GET.get("page") or 1   
@@ -55,7 +55,7 @@ def producto_cocina(request):
     return render(request, 'app/producto_cocina.html', contexto)
 
 def producto_libreros(request):
-    productoLibreros = Producto.objects.filter(categoria='2', stock__gte = 1, status = '3')
+    productoLibreros = Producto.objects.filter(categoria='3', stock__gte = 1, status = '1')
     paginator = Paginator(productoLibreros, 6)
 
     page = request.GET.get("page") or 1   
@@ -68,7 +68,7 @@ def producto_libreros(request):
     return render(request, 'app/producto_libreros.html', contexto)
 
 def producto_muebles(request):
-    productoMuebles = Producto.objects.filter(categoria='1', stock__gte = 1, status = '3')
+    productoMuebles = Producto.objects.filter(categoria='2', stock__gte = 1, status = '1')
     paginator = Paginator(productoMuebles, 6)
 
     page = request.GET.get("page") or 1   

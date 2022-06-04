@@ -13,10 +13,12 @@
 				<div class="col-md-6 col-sm-12 mt-3 mb-3">
 					<div class="row px-3">
 						<h3>{{producto.nombre}}</h3>
-						<h5 class="titulo-producto">${{producto.precio}}</h5>
+						<hr>
+						<h3 class="titulo-producto">${{producto.precio}}</h3>
 						<h5>{{producto.descripcion}}</h5>
 						<p></p>
 						<h5 class="titulo-producto">{{producto.stock}} Disponibles</h5>
+						
 						<b>Seleccionar Cantidad</b>
 						<div class="form-outline">
 							<input
@@ -28,7 +30,8 @@
 								class="form-control mb-3"
 							/>
 						</div>
-						<a href="" class="btn btn-dark">Agregar al Carro</a>
+						<button data-product="{{producto.idProducto}}" data-action="add" 
+						class="btn btn-dark add-btn update-cart">Agregar al Carro</button>
 					</div>
 				</div>
 			</div>
