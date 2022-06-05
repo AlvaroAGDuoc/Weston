@@ -92,11 +92,11 @@ Weston{%endblock %} {% block content %}
 					<div class="card-body">
 						<h4 class="card-title titulo-producto text-center">{{producto.nombre}}</h4>
 						<p class="card-text">
-							{{producto.descripcion}}
+							{{producto.descripcionCorta}}
 						</p>
 						<h3 class="titulo-producto text-center">${{producto.precio}}</h3>
 						<div class="d-grid gap-2">
-							<a href="{% url 'muestra_producto' producto.idProducto %}" class="btn btn-dark btn-lg btn-block">Comprar</a>
+							<a href="{% url 'muestra_producto' producto.idProducto %}" class="btn btn-dark btn-lg btn-block">Ver producto</a>
 						</div>
 				</div>
 			</div>

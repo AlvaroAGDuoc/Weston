@@ -5,7 +5,7 @@ from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 # Create your models here.
 class AdministradorUsuarios(BaseUserManager):
-    def create_user(self, email, nombre, telefono,direccion, password=None, is_active=True, is_staff=False, is_admin=False):
+    def create_user(self, email, nombre, telefono, password=None, is_active=True, is_staff=False, is_admin=False):
         if not email:
             raise ValueError("Los usuarios deben tener un correo electronico")
         if not password:
@@ -15,9 +15,8 @@ class AdministradorUsuarios(BaseUserManager):
         objeto_usuario = self.model(
             email = self.normalize_email(email),
             nombre = nombre,
-            telefono = telefono,
-            direccion = direccion,
-        )
+            telefono = telefono)
+
         objeto_usuario.set_password(password) # cambiar contraseña usuario
         objeto_usuario.staff = is_staff
         objeto_usuario.admin = is_admin
@@ -26,12 +25,12 @@ class AdministradorUsuarios(BaseUserManager):
         objeto_usuario.save(using=self._db)
         return objeto_usuario
 
-    def create_staffuser(self, email, nombre, telefono, direccion,  password=None):
+    def create_staffuser(self, email, nombre, telefono,  password=None):
         usuario = self.create_user(
             email,
             nombre=nombre,
             telefono = telefono,
-            direccion = direccion,
+            
             password=password,
             is_staff=True
             
@@ -39,12 +38,12 @@ class AdministradorUsuarios(BaseUserManager):
         
         return usuario
 
-    def create_superuser(self, email, nombre, telefono, direccion,  password=None):
+    def create_superuser(self, email, nombre, telefono,  password=None):
         usuario = self.create_user(
             email,
             nombre=nombre,
             telefono = telefono,
-            direccion = direccion,
+            
             password=password,
             is_staff=True,
             is_admin=True
@@ -53,34 +52,13 @@ class AdministradorUsuarios(BaseUserManager):
         
         return usuario
 
-class Region(models.Model):
-    idRegion = models.AutoField(primary_key=True, verbose_name="Id de la region")
-    nombre =  models.CharField(max_length=30, verbose_name="Nombre de la region",null=True, blank=False)
 
-    def __str__(self):
-        return self.nombre
-
-class Comuna(models.Model):
-    idComuna = models.AutoField(primary_key=True, verbose_name="Id de la comuna")
-    nombre =  models.CharField(max_length=30, verbose_name="Nombre de la comuna",null=True, blank=False)
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.nombre
-
-class Direccion(models.Model):
-    idDireccion = models.AutoField(primary_key=True, verbose_name="Id de rol")
-    descripcion = models.CharField(max_length=40, verbose_name="Nombre de la direccion",null=True, blank=False)
-    comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
-   
-    def __str__(self):
-         return self.descripcion
 
 class Usuario(AbstractBaseUser):
     email = models.EmailField(verbose_name='Correo electronico', max_length=50, unique=True)
     nombre = models.CharField(verbose_name='Nombre completo', max_length=40, blank=True, null=True)
     telefono = models.IntegerField(verbose_name="Telefono del usuario", null=True)
-    direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE)
+    
     active = models.BooleanField(default=True) # puede conectarse
     staff = models.BooleanField(default=False) # un usuario admin; no super-usuario
     admin = models.BooleanField(default=False) # un super-usuario
@@ -146,6 +124,14 @@ class Producto(models.Model):
         return self.nombre
 
 
+    @property
+    def imageURL(self):
+        try:
+            url = self.imagen.url
+        except:
+            url = ''
+        return url
+
 
 class Compra(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, blank=True, null=True)
@@ -155,12 +141,52 @@ class Compra(models.Model):
 
     def __str__(self):
         return str(self.id)
+    
+    @property
+    def obtener_total_carrito(self):
+        detalleProductos = self.detalle_set.all()
+        total = sum([producto.obtener_total for producto in detalleProductos])
+        return total
+
+    @property
+    def obtener_productos_carrito(self):
+        detalleProductos = self.detalle_set.all()
+        total = sum([producto.cantidad for producto in detalleProductos])
+        return total
 
 class Detalle(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, blank=True, null=True)
     compra = models.ForeignKey(Compra, on_delete=models.SET_NULL, blank=True, null=True)
-    cantidad = models.IntegerField(default=0,null=True, blank=True, verbose_name="Cantidad del detalle")
+    cantidad = models.IntegerField(default=0,null=True, blank=True, verbose_name="Cantidad")
     fecha_agregado = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def obtener_total(self):
+        total = self.producto.precio * self.cantidad
+        return total
+    
+
+class Region(models.Model):
+    idRegion = models.AutoField(primary_key=True, verbose_name="Id de la region")
+    nombre =  models.CharField(max_length=30, verbose_name="Nombre de la region",null=True, blank=False)
+
     def __str__(self):
-        return self.idDetalle
+        return self.nombre
+
+class Comuna(models.Model):
+    idComuna = models.AutoField(primary_key=True, verbose_name="Id de la comuna")
+    nombre =  models.CharField(max_length=30, verbose_name="Nombre de la comuna",null=True, blank=False)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre
+
+class Direccion(models.Model):
+    idDireccion = models.AutoField(primary_key=True, verbose_name="Id de rol")
+    descripcion = models.CharField(max_length=40, verbose_name="Nombre de la direccion",null=True, blank=False)
+    comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True, blank=True)
+    compra = models.ForeignKey(Compra, on_delete=models.SET_NULL, null=True, blank=True)
+   
+    def __str__(self):
+         return self.descripcion

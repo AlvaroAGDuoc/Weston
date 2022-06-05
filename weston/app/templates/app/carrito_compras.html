@@ -10,16 +10,16 @@
 			<div class="col-lg-12">
 				<div class="box-element">
 	
-					<a  class="btn btn-outline-dark" href="{% url 'inicio' %}">&#x2190; Continue Shopping</a>
+					<a  class="btn btn-outline-dark" href="{% url 'inicio' %}">&#x2190; Seguir comprando</a>
 	
 					<br>
 					<br>
 					<table class="table">
 						<tr>
-							<th><h5>Items: <strong>3</strong></h5></th>
-							<th><h5>Total:<strong> $42</strong></h5></th>
+							<th><h5>Productos añadidos: <strong>{{compra.obtener_productos_carrito}}</strong></h5></th>
+							<th><h5>Total compra: <strong>${{compra.obtener_total_carrito}}</strong></h5></th>
 							<th>
-								<a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
+								<a  style="float:right; margin:5px;" class="btn btn-dark" href="{% url 'checkout' %}">Continuar Compra</a>
 							</th>
 						</tr>
 					</table>
@@ -30,27 +30,27 @@
 				<div class="box-element">
 					<div class="cart-row">
 						<div style="flex:2"></div>
-						<div style="flex:2"><strong>Item</strong></div>
-						<div style="flex:1"><strong>Price</strong></div>
-						<div style="flex:1"><strong>Quantity</strong></div>
+						<div style="flex:2"><strong>Producto</strong></div>
+						<div style="flex:1"><strong>Precio</strong></div>
+						<div style="flex:1"><strong>Cantidad</strong></div>
 						<div style="flex:1"><strong>Total</strong></div>
 					</div>
-					
+					{% for producto in productos %}
 					<div class="cart-row">
-						<div style="flex:2"><img class="row-image" src="{% static 'app/img/logo.png' %}"></div>
-						<div style="flex:2"><p>Product 1</p></div>
-						<div style="flex:1"><p>$20</p></div>
+						<div style="flex:2"><img class="row-image" src="{{producto.producto.imageURL}}"></div>
+						<div style="flex:2"><p>{{producto.producto.nombre}}</p></div>
+						<div style="flex:1"><p>${{producto.producto.precio}}</p></div>
 						<div style="flex:1">
-							<p class="quantity">2</p>
+							<p class="quantity">{{producto.cantidad}}</p>
 							<div class="quantity">
-								<img class="chg-quantity" src="{% static  'images/arrow-up.png' %}">
+								<img class="chg-quantity" src="{% static  'app/img/flecha.png' %}">
 						
-								<img class="chg-quantity" src="{% static  'images/arrow-down.png' %}">
+								<img class="chg-quantity" src="{% static  'app/img/flechaAbajo.png' %}">
 							</div>
 						</div>
-						<div style="flex:1"><p>$32</p></div>
+						<div style="flex:1"><p>${{producto.obtener_total}}</p></div>
 					</div>
-	
+					{% endfor %}
 				</div>
 			</div>
 		</div>

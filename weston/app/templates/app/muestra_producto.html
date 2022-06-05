@@ -16,21 +16,11 @@
 						<hr>
 						<h3 class="titulo-producto">${{producto.precio}}</h3>
 						<h5>{{producto.descripcion}}</h5>
-						<p></p>
-						<h5 class="titulo-producto">{{producto.stock}} Disponibles</h5>
 						
-						<b>Seleccionar Cantidad</b>
-						<div class="form-outline">
-							<input
-								id="form1"
-								min="0"
-								name="Cantidad"
-								value="1"
-								type="number"
-								class="form-control mb-3"
-							/>
-						</div>
-						<button data-product="{{producto.idProducto}}" data-action="add" 
+						<h5 class="titulo-producto">{{producto.stock}} Disponibles</h5>
+
+		
+						<button data-producto="{{producto.idProducto}}" data-action="add" 
 						class="btn btn-dark add-btn update-cart">Agregar al Carro</button>
 					</div>
 				</div>
