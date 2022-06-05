@@ -24,21 +24,19 @@
 			type="text/css"
 			rel="stylesheet"
 		/>
-		<script type="text/javascript">
-			var user = '{{request.user}}'
-		</script>
 	</head>
 	<body class="fondo">
 		<!--BARRA NAV-->
 		<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 			<div class="container-fluid">
-				<!--LOGO DE LA PAGINA-->>
+				<!--LOGO DE LA PAGINA-->
 				<a class="navbar-brand" href="{% url 'inicio'%}"
 					><img
 						src="{% static 'app/img/LOGO.png' %}"
 						alt="logo de la pagina"
 						width="100"
-				/></a>
+				>
+				</a>
 				<button
 					class="navbar-toggler"
 					type="button"

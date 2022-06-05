@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Categoria, Producto, Region, Direccion, Status
+from .models import Categoria, Producto, Region, Direccion, Usuario
 from django.contrib import messages
 from django.core.paginator import Paginator
 from .forms import RegistroUsuario
@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login
 # Create your views here.
 
 def inicio(request):
-    productoInicio = Producto.objects.filter(stock__gte = 1, status = '3', precio__lte = 5000)
+    productoInicio = Producto.objects.filter(stock__gte = 1, precio__lte = 5000)
     paginator = Paginator(productoInicio, 1)
 
     page = request.GET.get("page") or 1   
@@ -40,7 +40,7 @@ def registro(request):
 
 
 def producto_cocina(request):
-    productoCocina = Producto.objects.filter(categoria='1', stock__gte = 1, status = '1')
+    productoCocina = Producto.objects.filter(categoria='1', stock__gte = 1)
     paginator = Paginator(productoCocina, 6)
 
     page = request.GET.get("page") or 1   
@@ -55,7 +55,7 @@ def producto_cocina(request):
     return render(request, 'app/producto_cocina.html', contexto)
 
 def producto_libreros(request):
-    productoLibreros = Producto.objects.filter(categoria='3', stock__gte = 1, status = '1')
+    productoLibreros = Producto.objects.filter(categoria='3', stock__gte = 1)
     paginator = Paginator(productoLibreros, 6)
 
     page = request.GET.get("page") or 1   
@@ -68,7 +68,7 @@ def producto_libreros(request):
     return render(request, 'app/producto_libreros.html', contexto)
 
 def producto_muebles(request):
-    productoMuebles = Producto.objects.filter(categoria='2', stock__gte = 1, status = '1')
+    productoMuebles = Producto.objects.filter(categoria='2', stock__gte = 1)
     paginator = Paginator(productoMuebles, 6)
 
     page = request.GET.get("page") or 1   
@@ -88,6 +88,9 @@ def contrasena_olvidada(request):
 
 def carrito(request):
     return render(request, 'app/carrito_compras.html')
+
+def checkout(request):
+    return render(request, 'app/checkout.html')
 
 
 def perfil(request):
@@ -125,13 +128,10 @@ def registrar_p(request):
     categoria = request.POST['categoria']
     stock = request.POST['stock']
     descripcionCorta = request.POST['descripcionCorta']
-    descripcion = request.POST['descripcion']
-    
-    status = 3
+    descripcion = request.POST['descripcion']    
 
     cat2 = Categoria.objects.get(idCategoria = categoria)
-    status2 = Status.objects.get(idStatus = status)
-    Producto.objects.create(nombre=nombre, precio= precio, imagen= imagen, categoria= cat2, stock= stock, descripcionCorta = descripcionCorta, descripcion = descripcion,  status = status2)
+    Producto.objects.create(nombre=nombre, precio= precio, imagen= imagen, categoria= cat2, stock= stock, descripcionCorta = descripcionCorta, descripcion = descripcion)
     return redirect('form_agregar')
 
 
