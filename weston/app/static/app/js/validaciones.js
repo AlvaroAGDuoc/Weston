@@ -112,11 +112,13 @@ $(document).ready(function () {
 		if (dir.trim().length < 8 || dir.trim().length > 30) {
 			$("#msjDir").html("El pasaje debe tener un largo minimo de 8 y maximo de 30.<br>");
 			entrar = true;
+			e.preventDefault();
 		}
 
 		if(!/[a-z]/.test(dir) && (!/[A-Z]/.test(dir))){
             $("#msjDir").html("la direccion no contiene caracteres. <br>");
             entrar = true;
+			e.preventDefault();
         }
 
 		//FIN VALIDACIONES DIRECCION
@@ -133,11 +135,9 @@ $(document).ready(function () {
 		//-----------------------//
 
 		if (entrar) {
-
 			$('#msjClave').html(msjClaves);
 			e.preventDefault();
-		} else {
-			
+		} else {			
 		}
 	});
 

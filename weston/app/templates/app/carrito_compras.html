@@ -37,7 +37,7 @@
 					</div>
 					{% for producto in productos %}
 					<div class="cart-row">
-						{% if producto.imagen %}
+						{% if producto.producto.imagen %}
 						<div style="flex:2"><img class="row-image" src="{{producto.producto.imageURL}}"></div>
 						{%else %}
 						<div style="flex:2"><img class="row-image" src="{% static 'app/img/cocina.jpg' %}"></div>

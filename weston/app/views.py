@@ -186,7 +186,7 @@ def procesarCompra(request):
     return JsonResponse('Compra realizada', safe=False)
  
 def inicio(request):
-    productoInicio = Producto.objects.filter(stock__gte = 1, precio__lte = 5000)
+    productoInicio = Producto.objects.filter(stock__gte = 1, precio__lte = 50000)
     paginator = Paginator(productoInicio, 6)
 
     page = request.GET.get("page") or 1   
