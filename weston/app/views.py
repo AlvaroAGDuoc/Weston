@@ -1,4 +1,3 @@
-from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import Categoria, Detalle, Producto, Region, Direccion, Usuario, Compra
@@ -6,11 +5,8 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from .forms import RegistroUsuario
 from django.contrib.auth import authenticate, login
-import json
+import datetime
 # Create your views here.
-
-
-
 
 def registro(request):
     data = {
@@ -35,10 +31,11 @@ def carrito(request):
         usuario = request.user
         compra, created = Compra.objects.get_or_create(usuario=usuario, completada=False)
         productos = compra.detalle_set.all()
+        productosCarrito = compra.obtener_productos_carrito
     else:
         productos = []
         compra = {"obtener_total_carrito": 0, 'obtener_productos_carrito': 0}
-    context = {'productos':productos , 'compra': compra}
+    context = {'productos':productos , 'compra': compra, 'productosCarrito': productosCarrito}
     
     return render(request, 'app/carrito_compras.html', context)
 
@@ -49,11 +46,12 @@ def checkout(request):
         usuario = request.user
         compra, created = Compra.objects.get_or_create(usuario=usuario, completada=False)
         productos = compra.detalle_set.all()
+        productosCarrito = compra.obtener_productos_carrito
     else:
         productos = []
         compra = {"obtener_total_carrito": 0, 'obtener_productos_carrito': 0}
         
-    context = {'productos':productos , 'compra': compra}
+    context = {'productos':productos , 'compra': compra, 'productosCarrito': productosCarrito}
     return render(request, 'app/checkout.html', context)
 
 def actualizarProducto(request):
@@ -67,7 +65,6 @@ def actualizarProducto(request):
     usuario = request.user
     producto = Producto.objects.get(idProducto=productoId)
     compra,created = Compra.objects.get_or_create(usuario=usuario, completada = False)
-
     detalle, created = Detalle.objects.get_or_create(compra=compra, producto=producto)
 
     if action == 'add':
@@ -81,10 +78,36 @@ def actualizarProducto(request):
         detalle.delete()
     return JsonResponse('El producto ha sido agregado', safe=False)
 
+def muestra_producto(request, id):
+    if request.user.is_authenticated:
+        usuario = request.user
+        compra, created = Compra.objects.get_or_create(usuario=usuario, completada=False)
+        productos = compra.detalle_set.all()
+        productosCarrito = compra.obtener_productos_carrito
+    else:
+        productos = []
+        compra = {"obtener_total_carrito": 0, 'obtener_productos_carrito': 0}
+        productosCarrito = compra['obtener_productos_carrito']
 
 
+    producto = Producto.objects.get(idProducto = id)
+    contexto = {
+        "producto": producto,
+        'productos': productos,
+        "productosCarrito": productosCarrito
+    }
 
+    return render(request, 'app/muestra_producto.html', contexto)
 
+def procesarCompra(request):
+    transaccion_id = datetime.datetime.now().timestamp()
+
+    if request.user.is_authenticated:
+        usuario = request.user
+
+    else:
+        print("El usuario no esta logeado")
+    return JsonResponse('Compra realizada', safe=False)
  
 def inicio(request):
     productoInicio = Producto.objects.filter(stock__gte = 1, precio__lte = 5000)
@@ -95,7 +118,7 @@ def inicio(request):
 
     contexto = {
         "productos": productos,
-        'paginator': paginator
+        'paginator': paginator,
     }
     return render(request, 'app/index.html', contexto)
 
@@ -147,35 +170,13 @@ def contrasena_olvidada(request):
     return render(request, 'app/contrasena_olvidada.html')
 
 
-
-
-
-
 def perfil(request):
     return render(request, 'app/perfil_usuario.html')
 
 def editar_usuario(request):
     return render(request, 'app/editar_usuario.html')
 
-def muestra_producto(request, id):
-    if request.user.is_authenticated:
-        usuario = request.user
-        compra, created = Compra.objects.get_or_create(usuario=usuario, completada=False)
-        productos = compra.detalle_set.all()
-        productosCarrito = compra.obtener_productos_carrito
-    else:
-        productos = []
-        compra = {"obtener_total_carrito": 0, 'obtener_productos_carrito': 0}
-        productosCarrito = compra['obtener_productos_carrito']
 
-
-    producto = Producto.objects.get(idProducto = id)
-    contexto = {
-        "producto": producto,
-        "productosCarrito": productosCarrito
-    }
-
-    return render(request, 'app/muestra_producto.html', contexto)
 
 def cambiar_contrasena(request):
     return render(request, 'app/cambiar_contrasena.html')
