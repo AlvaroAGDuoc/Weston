@@ -23,13 +23,20 @@
 						<div class="col-md-4 col-sm-6 mb-3">
 							<div class="card shadow bg-light">
 								{% if producto.imagen %}
-								<img
-									class="card-img-top"
-									src="{{producto.imagen.url}}"
-									alt="{{producto.nombre}}"
-									style="width: 100%"
-								/>
-								{% endif %}
+							<img
+								class="card-img-top "
+								src="{{producto.imagen.url}}"
+								alt="{{producto.nombre}}"
+								style="width: 100%"
+							/>
+							{% else %}
+							<img
+								class="card-img-top "
+								src="{% static 'app/img/cocina.jpg' %}"
+								alt="{{producto.nombre}}"
+								style="width: 100%"
+							/>
+							{% endif %}
 								<div class="card-body">
 									<h4 class="card-title titulo-producto text-center">{{producto.nombre}}</h4>
 									<p class="card-text">

@@ -28,6 +28,13 @@
 								alt="{{producto.nombre}}"
 								style="width: 100%"
 							/>
+							{% else %}
+							<img
+								class="card-img-top "
+								src="{% static 'app/img/cocina.jpg' %}"
+								alt="{{producto.nombre}}"
+								style="width: 100%"
+							/>
 							{% endif %}
 							<div class="card-body">
 								<h4 class="card-title titulo-producto text-center">{{producto.nombre}}</h4>

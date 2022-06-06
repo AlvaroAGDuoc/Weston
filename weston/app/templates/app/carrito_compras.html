@@ -37,7 +37,11 @@
 					</div>
 					{% for producto in productos %}
 					<div class="cart-row">
+						{% if producto.imagen %}
 						<div style="flex:2"><img class="row-image" src="{{producto.producto.imageURL}}"></div>
+						{%else %}
+						<div style="flex:2"><img class="row-image" src="{% static 'app/img/cocina.jpg' %}"></div>
+						{% endif %}
 						<div style="flex:2"><p>{{producto.producto.nombre}}</p></div>
 						<div style="flex:1"><p>${{producto.producto.precio}}</p></div>
 						<div style="flex:1">

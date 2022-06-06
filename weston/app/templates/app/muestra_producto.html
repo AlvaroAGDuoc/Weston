@@ -7,9 +7,16 @@
 
 
 			<div class="row">
+				{% if producto.imagen %}
 				<div class="col-md-6 col-sm-12 mt-3 mb-3">
-					<img src="{{producto.imagen.url}}" class="img-thumbnail" alt="..." />
+					<img src="{{producto.imageURL}}" class="img-thumbnail" alt="..." />
 				</div>
+				{% else %}
+				<div class="col-md-6 col-sm-12 mt-3 mb-3">
+					<img src="{% static 'app/img/cocina.jpg' %}" class="img-thumbnail" alt="..." />
+				</div>
+				{% endif %}
+				
 				<div class="col-md-6 col-sm-12 mt-3 mb-3">
 					<div class="row px-3">
 						<h3>{{producto.nombre}}</h3>
