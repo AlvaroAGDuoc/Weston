@@ -4,7 +4,7 @@
 
 {% block content %}
 		<div class="container">
-			<form method="post" id="form-camb">
+			<form  action="{% url 'cambio_contrasena' %}" method="POST" enctype="multipart/form-data" id="form-camb" >
 				<div class="row">
 					<div class="col-2 mt-3 mb-3"></div>
 					<div class="col-8 mt-3 mb-3">
@@ -19,6 +19,7 @@
 								class="form-control mb-3"
 								name="contrasena"
 								placeholder="*********"
+								id= "claveActual"
 							/>
 							<h5>Nueva contraseña</h5>
 							<input
@@ -27,6 +28,7 @@
 								class="form-control mb-3"
 								name="contrasena"
 								placeholder="*********"
+								id="claveNueva"
 							/>
 							<h5>Reingrese nueva contraseña</h5>
 							<input
@@ -35,6 +37,7 @@
 								class="form-control mb-3"
 								name="contrasena"
 								placeholder="*********"
+								id="claveNueva2"
 							/>
 
 							<button type="submit" class="btn btn-dark">Cambiar</button>

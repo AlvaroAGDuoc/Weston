@@ -6,7 +6,7 @@
 
 <!--PERFIL USUARIO-->
 <div class="container">
-	<form action="{% url 'post_editar_usuario' %}" method="POST" enctype="multipart/form-data" >
+	<form action="{% url 'post_editar_usuario' %}" method="POST" enctype="multipart/form-data" id="form-edit" >
 		{% csrf_token %}
 		<div class="row">
 			<div class="col-2 mt-3 mb-3"></div>
@@ -27,25 +27,25 @@
 					<!--titulo-->
 					<h5>Dirección</h5>
 					<input type="text" class="form-control mt-1 mb-2" name="direccion" id="direccion"
-						value="{{direccion}}" />
+						value="{{direccion}}" required/>
+					<p class="warnings" id="msjDir"></p>
 
 					<!--titulo-->
 					<h5>Contacto</h5>
 					<!--texto deshabilitado-->
 					<input type="text" class="form-control mt-1 mb-2" name="contacto" id="contacto" value="{{user.telefono}}" />
+					<p class="warnings" id="msjTel"></p>
 
 					<h5>Region</h5>
-						<select class="form-control mt-1 mb-2" name="region" id="region" >
-							<option value="0" selected>Seleccione una region</option>
+						<select class="form-control mt-1 mb-2" name="region" id="region" required>
 							{% for r in region %}
 									<option value="{{ r.idRegion }}" selected required>{{ r.nombre }}</option>
 							{% endfor %}
 						</select>
 					</div>
+
 					<h5>Comuna</h5>
-					
-						<select class="form-control mt-1 mb-2" name="comuna" id="comuna">
-							<option value="0">Seleccione una comuna</option>
+						<select class="form-control mt-1 mb-2" name="comuna" id="comuna" required>
 							{% for c in comuna %} 
 								<option value="{{ c.idComuna }}" regionid={{c.region_id}} style="display: none;" required>{{ c.nombre }}</option>
 							{% endfor %}
@@ -54,15 +54,16 @@
 					<div class="row mt-3">
 						<div class="col-sm-12 col-md-6 mb-3">
 							<div class="d-grid gap-2">
-								<button type="submit" class="btn btn-dark">
+								<button type="submit" class="btn btn-dark" id="btn_edit">
 									Aplicar cambios
 								</button>
 							</div>
 						</div>
 						<div class="col-sm-12 col-md-6">
 							<div class="d-grid gap-2">
-								<a href="cambiar_contrasena.html" class="btn btn-dark">Cambiar contraseña</a>
+								<a href="{% url 'cambiar_contrasena'%}" class="btn btn-dark">Cambiar contraseña</a>
 							</div>
+							
 						</div>
 						<p id="warnings" class="text-center"></p>
 					</div>

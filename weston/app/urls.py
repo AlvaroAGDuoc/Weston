@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import inicio, login_inicio, login_view, logout_view, singup_view, modificar_p, producto_cocina, producto_libreros, producto_muebles, contacto, eliminar_producto, carrito, muestra_producto, perfil, form_agregar, editar_usuario, cambiar_contrasena, menu_admin, checkout, registrar_p, lista_usuarios, modificar_producto, registro_ventas, actualizarProducto, procesarCompra,post_editar_usuario
+from .views import inicio, login_inicio, login_view, logout_view, singup_view,registro_inicio, cambio_contrasena, modificar_p, producto_cocina, producto_libreros, producto_muebles, contacto, eliminar_producto, carrito, muestra_producto, perfil, form_agregar, editar_usuario, cambiar_contrasena, menu_admin, checkout, registrar_p, lista_usuarios, modificar_producto, registro_ventas, actualizarProducto, procesarCompra,post_editar_usuario
 
 urlpatterns = [
     path('', inicio, name="inicio"),
@@ -7,6 +7,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'), 
     path('login_view/', login_view, name='login_view'), 
     path('registro/', singup_view, name="registro"),
+    path('registro_inicio/', registro_inicio, name="registro_inicio"),
     path('cocina/', producto_cocina, name="cocina"),
     path('libreros/', producto_libreros, name="libreros"),
     path('muebles/', producto_muebles, name="muebles"),
@@ -17,6 +18,7 @@ urlpatterns = [
     path('perfil/', perfil, name="perfil"),
     path('editar_perfil/', editar_usuario, name="editar_perfil"),
     path('cambiar_contrasena/', cambiar_contrasena, name="cambiar_contrasena"),
+    path('cambio_contrasena/', cambio_contrasena, name="cambio_contrasena"),
     path('menu_admin/', menu_admin, name="menu_admin"),
     path('form_agregar/', form_agregar, name="form_agregar"),
     path('registrar_p/', registrar_p, name="registrar_p"),

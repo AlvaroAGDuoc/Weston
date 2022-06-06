@@ -10,34 +10,39 @@
 		<div class="col-2 mt-3 mb-3"></div>
 		<div class="col-8 mt-3 mb-3">
 			<div class="row">
-				<form action="{% url 'registro' %}" method="post">
+				<form action="{% url 'registro' %}" method="post" id="form_reg">
 					{% csrf_token %}
 					<h1 class="texto-principal text-center">Registro de usuario</h1>
 					<hr />
 					<h5>Nombre Completo</h5>
 					{{ signupForm.nombre }}
+					<p class="warnings" id="msjNomb"></p>
 
 					<h5>Correo Electronico</h5>
 					{{ signupForm.email }}
+					<p class="warnings" id="msjCorreo"></p>
 
 					<h5>Número celular</h5>
 					{{ signupForm.telefono }}
+					<p class="warnings" id="msjTel"></p>
 
 					<h5>Contraseña</h5>
 					{{ signupForm.password }}
+					
 
 					<h5>Reingrese su contraseña</h5>
 					{{ signupForm.password2 }}
+					<p class="warnings" id="msjClave"></p>
+					<p class="warnings" id="msj"></p>
 
 					<div class="d-grid gap-2">
 						<button type="submit" class="btn btn-dark mb-3" id="btn_reg">
 							Registrarse
 					</div>
 
-					<p id="warnings" class="text-center "></p>
 					<div class="text-center">
 						<p class="text-center" >¿Ya tienes una cuenta?</p>
-						<a href="login.html" class="text-reset">Inicia sesión aqui</a>
+						<a href="{% url 'login_inicio' %}" class="text-reset">Inicia sesión aqui</a>
 					</div>
 				</form>
 			</div>
