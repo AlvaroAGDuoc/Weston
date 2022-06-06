@@ -3,7 +3,7 @@ from .views import inicio, login_inicio, login_view, logout_view, singup_view, m
 
 urlpatterns = [
     path('', inicio, name="inicio"),
-    path('login/', login_inicio, name='login_inicio'), 
+    path('login_inicio/', login_inicio, name='login_inicio'), 
     path('logout/', logout_view, name='logout'), 
     path('login_view/', login_view, name='login_view'), 
     path('registro/', singup_view, name="registro"),

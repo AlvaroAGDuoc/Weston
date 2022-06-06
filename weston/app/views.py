@@ -27,10 +27,10 @@ def login_view(request):
             return redirect('inicio')
         else:
             messages.warning(request, 'Correo Electrónico o Contraseña inválida')
-            return redirect('login')
+            return redirect('login_inicio')
 
     messages.error(request, 'Formulario Inválido')
-    return redirect('login')
+    return redirect('login_inicio')
 
 
 def singup_view(request):
@@ -315,12 +315,12 @@ def registrar_p(request):
 
 
 def lista_usuarios(request):
-    usuariosWeb = Usuario.objects.all()
-    direccionUsuario = Direccion.objects.all()
+    usuario = Usuario.objects.all()
+    direccion = Direccion.objects.all()
     region = Region.objects.all()
     contexto = {
-        "usuarios": usuariosWeb,
-        "direccion": direccionUsuario,
+        "usuarios": usuario,
+        "direccion": direccion,
         "region": region,
     }
     return render(request, 'app/lista_usuarios.html', contexto)
