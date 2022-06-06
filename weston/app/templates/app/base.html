@@ -52,10 +52,15 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="mynavbar">
+
+				
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item">
 						<a class="nav-link active fs-6" href="{% url 'inicio'%}">Inicio</a>
 					</li>
+
+					
+
 					<li class="nav-item dropdown">
 						<!--BOTON PARA DESPLEGAR TIPOS DE PRODUCTOS-->
 						<a class="nav-link active dropdown-toggle fs-6" href="#" id="navbarDropdownMenuLink"
@@ -86,24 +91,65 @@
 									src="{% static 'app/img/carrito.png' %}" alt="logo carrito" /></a>
 							<p id="cart-total" style="position:absolute; top: 0;">{{productosCarrito}}</p>
 						</div>
-
 						{% if user.is_authenticated %}
 						<li class="nav-item">
-							<a class="nav-link active fs-6" href="{% url 'logout'%}">{{user.nombre}}</a>
-						</li>
+							<a class="nav-link active fs-6" href="{% url 'perfil'%}">Mi perfil</a>
+						</li> 
 						<li class="nav-item">
 							<a class="nav-link active fs-6" href="{% url 'logout'%}">Salir</a>
 						</li>
 						{% else %}
 						<li class="nav-item">
-							<a class="nav-link active fs-6" href="{% url 'login'%}">Login</a>
+							<a class="nav-link active fs-6" href="{% url 'login_inicio'%}">Login</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link active fs-6" href="{% url 'registro'%}">Registro</a>
 						</li>
 						{% endif %}
 
+						
+						{% if user.is_authenticated and user.is_staff == 1 %}
+						<li class="nav-item dropdown">
+							<!--BOTON PARA DESPLEGAR TIPOS DE PRODUCTOS-->
+							<a
+								class="nav-link active dropdown-toggle fs-6"
+								href="#"
+								id="navbarDropdownMenuLink"
+								role="button"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								Admin
+							</a>
+							<!--ELEMENTOS LISTA DESPLEGABLE-->
+							<ul
+								class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink"
+							>
+								<li>
+									<a class="dropdown-item" href="lista_usuarios.html"
+										>Usuarios</a
+									>
+								</li>
+								<li>
+									<a class="dropdown-item" href="admin.html">Productos</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="registro_Ventas.html">Ventas</a>
+								</li>
+							</ul>
+						</li>
 					</ul>
+					<form class="d-flex">
+						<ul class="navbar-nav me-auto">
+							<li class="nav-item">
+								<a class="nav-link active fs-6" href="../index.html">Salir</a>
+							</li>
+						</ul>
+					</form>
+						{% endif %}
+
+				</ul>
 				</form>
 			</div>
 		</div>

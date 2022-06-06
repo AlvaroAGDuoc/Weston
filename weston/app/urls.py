@@ -1,9 +1,12 @@
 from django.urls import path
-from .views import inicio,registro, modificar_p, producto_cocina, producto_libreros, producto_muebles, contacto, eliminar_producto, carrito, muestra_producto, perfil, form_agregar, editar_usuario, cambiar_contrasena, menu_admin, checkout, registrar_p, lista_usuarios, modificar_producto, registro_ventas, actualizarProducto, procesarCompra
+from .views import inicio, login_inicio, login_view, logout_view, singup_view, modificar_p, producto_cocina, producto_libreros, producto_muebles, contacto, eliminar_producto, carrito, muestra_producto, perfil, form_agregar, editar_usuario, cambiar_contrasena, menu_admin, checkout, registrar_p, lista_usuarios, modificar_producto, registro_ventas, actualizarProducto, procesarCompra,post_editar_usuario
 
 urlpatterns = [
     path('', inicio, name="inicio"),
-    path('registro/', registro, name="registro"),
+    path('login/', login_inicio, name='login_inicio'), 
+    path('logout/', logout_view, name='logout'), 
+    path('login_view/', login_view, name='login_view'), 
+    path('registro/', singup_view, name="registro"),
     path('cocina/', producto_cocina, name="cocina"),
     path('libreros/', producto_libreros, name="libreros"),
     path('muebles/', producto_muebles, name="muebles"),
@@ -24,4 +27,5 @@ urlpatterns = [
     path('ventas/', registro_ventas, name="registro_ventas"),
     path('actualizar_producto/', actualizarProducto, name="actualizarProducto"),
     path('procesar_compra/', procesarCompra, name="procesarCompra"),
+    path('post_editar_usuario/', post_editar_usuario, name="post_editar_usuario"),
 ]

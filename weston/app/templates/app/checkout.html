@@ -21,25 +21,25 @@
                         <hr>
                         <p>Información de envio:</p>
                         <hr>
-
-
-                        
+                    
                         <div class="form-field">
                             <input class="form-control" type="text" name="direccion" placeholder="Direccion.." required>
                         </div>
 
                         
                         <div class="form-field">
-                            <select class="form-control" name="region" id="region">
+                            <select class="form-control" name="region" id="region" >
+                                <option value="0" selected>Seleccione una region</option>
                                 {% for r in region %}
-                                        <option value="{{ r.idRegion }}" selected>{{ r.nombre }}</option>
+                                        <option value="{{ r.idRegion }}" selected required>{{ r.nombre }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                         <div class="form-field">
                             <select class="form-control" name="comuna" id="comuna">
-                                {% for c in comuna %}
-                                        <option value="{{ c.idComuna }}" selected>{{ c.nombre }}</option>
+                                <option value="0">Seleccione una comuna</option>
+                                {% for c in comuna %} 
+                                    <option value="{{ c.idComuna }}" regionid={{c.region_id}} style="display: none;" required>{{ c.nombre }}</option>
                                 {% endfor %}
                             </select>
                         </div>                     

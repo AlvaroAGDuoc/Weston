@@ -3,28 +3,83 @@ from django.http import JsonResponse
 from .models import Categoria, Detalle, Producto, Region, Direccion, Usuario, Compra, Comuna
 from django.contrib import messages
 from django.core.paginator import Paginator
-from .forms import RegistroUsuario
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import make_password
+
 import json
 import datetime
+from .forms import UserLoginForm, UserSignUpForm
 # Create your views here.
 
-def registro(request):
-    data = {
-        'form': RegistroUsuario()
-    }
 
-    if request.method == 'POST':
-        formulario = RegistroUsuario(data = request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            usuario = authenticate(email=formulario.cleaned_data['email'],
-            password = formulario.cleaned_data['password1'])
-            login(request, usuario)
-            return redirect(to="inicio")
-        data["form"] = formulario
-   
-    return render(request, 'registration/registro.html', data)
+def login_inicio(request):
+    return render(request, 'registration/login.html')
+
+def login_view(request):
+    login_form = UserLoginForm(request.POST or None)
+    if login_form.is_valid():
+        email = login_form.cleaned_data.get('email')
+        password = login_form.cleaned_data.get('password')
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Has iniciado sesión correctamente')
+            return redirect('inicio')
+        else:
+            messages.warning(request, 'Correo Electrónico o Contraseña inválida')
+            return redirect('login')
+
+    messages.error(request, 'Formulario Inválido')
+    return redirect('login')
+
+
+def singup_view(request):
+    signup_form = UserSignUpForm(request.POST or None)
+    if signup_form.is_valid():
+        email = signup_form.cleaned_data.get('email')
+        nombre = signup_form.cleaned_data.get('nombre')
+        telefono = signup_form.cleaned_data.get('telefono')
+        password = signup_form.cleaned_data.get('password')
+       
+        try:
+           
+            user = Usuario.objects.create(
+                email=email,
+                nombre=nombre,
+                telefono=telefono,
+                password=make_password(password),
+            )
+            login(request, user)
+            return redirect('inicio')
+
+        except Exception as e:
+            print(e)
+            return JsonResponse({'detail': f'{e}'})
+    return render(request, 'registration/registro.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('inicio')
+
+
+
+
+
+def perfil(request):
+    usuario = request.user
+    existe =  Direccion.objects.filter(usuario = usuario).exists()
+
+    if existe:
+        direccion = Direccion.objects.get(usuario = usuario)
+        direccion = direccion.descripcion
+    else:
+        direccion = "No tiene ninguna direccion"
+    
+    contexto = {
+        "direccion" : direccion
+    }    
+    return render(request, 'app/perfil_usuario.html',contexto) 
 
 def carrito(request):
 
@@ -189,14 +244,47 @@ def contacto(request):
 
 def contrasena_olvidada(request):
     return render(request, 'app/contrasena_olvidada.html')
-
-
-def perfil(request):
-    return render(request, 'app/perfil_usuario.html')
+    
 
 def editar_usuario(request):
-    return render(request, 'app/editar_usuario.html')
+    region = Region.objects.all()
+    comuna = Comuna.objects.all()
+    usuario = request.user
+    existe =  Direccion.objects.filter(usuario = usuario).exists()
 
+    if existe:
+        direccion = Direccion.objects.get(usuario = usuario)
+        direccion = direccion.descripcion
+    else:
+        direccion = ""
+    
+    contexto = {
+        "direccion" : direccion, 'region': region, 'comuna':comuna
+    }
+    return render(request, 'app/editar_usuario.html',contexto)
+
+def post_editar_usuario(request):
+    usuario = request.user
+    direccion = request.POST['direccion']
+    comuna = request.POST['comuna']
+    telefono = request.POST['contacto']
+
+    existe =  Direccion.objects.filter(usuario = usuario).exists()
+    com = Comuna.objects.get(idComuna = comuna)
+
+    if existe:
+        direccion2 = Direccion.objects.get(usuario = usuario)
+        direccion2.descripcion = direccion 
+        direccion2.comuna = com
+        direccion2.save()
+    else:
+        direccion2 = Direccion.objects.create(descripcion = direccion, comuna= com, usuario=usuario)
+        direccion2.save()
+    
+    usuario.telefono = telefono  
+
+    usuario.save()
+    return redirect('perfil')
 
 
 def cambiar_contrasena(request):

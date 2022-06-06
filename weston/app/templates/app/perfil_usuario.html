@@ -19,7 +19,7 @@
 							type="text"
 							class="form-control mt-1 mb-2"
 							name="nombre"
-							placeholder="Marcianeke full tussi"
+							value="{{user.nombre}}"
 						/>
 
 						<!--titulo-->
@@ -30,7 +30,7 @@
 							type="text"
 							class="form-control mt-1 mb-2"
 							name="correo"
-							placeholder="marcianeke@gmail.com"
+							value="{{user.email}}"
 						/>
 
 						<!--titulo-->
@@ -40,31 +40,21 @@
 							type="text"
 							class="form-control mt-1 mb-2"
 							name="direccion completa"
-							placeholder="Los puente albino 3183, Region Metropolitana de Santiago, Puente Alto"
+							value="{{direccion}}"
 						/>
-
 						<!--titulo-->
 						<h5>Contacto</h5>
 						<!--texto deshabilitado-->
 						<input
 							disabled
 							type="text"
-							class="form-control mt-1 mb-2"
+							class="form-control mt-1 mb-3"
 							name="contacto"
-							placeholder="+56 9 7273 1722"
+							value="{{user.telefono}}"
 						/>
-
-						<!--titulo-->
-						<h5>Contraseña</h5>
-						<!--texto deshabilitado-->
-						<input
-							disabled
-							type="password"
-							class="form-control mt-1 mb-2"
-							name="contrasena"
-							placeholder="*************"
-						/>
-						<a href="editar_usuario.html" class="btn btn-dark mb-3"
+						
+						
+						<a href="{% url 'editar_perfil'%}" class="btn btn-dark mb-3"
 							>Editar Cuenta</a
 						>
 					</div>

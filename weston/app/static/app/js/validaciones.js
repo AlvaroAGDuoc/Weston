@@ -185,61 +185,61 @@ $(document).ready(function () {
 	});
 
 	/* Validaciones de editar usuario */
-	$('#form-edit').submit(function (e) {
-		e.preventDefault();
-		var dir = $('#dir_edit').val();
-		var com = $('#com_edit').val();
-		var celu = $('#celu_edit').val();
-		var mensaje = '';
+	// $('#form-edit').submit(function (e) {
+	// 	e.preventDefault();
+	// 	var dir = $('#dir_edit').val();
+	// 	var com = $('#com_edit').val();
+	// 	var celu = $('#celu_edit').val();
+	// 	var mensaje = '';
 
-		let entrar = false;
+	// 	let entrar = false;
 
-		//VALIDACIONES DIRECCION
-		if (dir.trim().length < 8 || dir.trim().length > 30) {
-			mensaje += 'El pasaje debe tener un largo minimo de 8 y maximo de 30.<br>';
-			entrar = true;
-		}
+	// 	//VALIDACIONES DIRECCION
+	// 	if (dir.trim().length < 8 || dir.trim().length > 30) {
+	// 		mensaje += 'El pasaje debe tener un largo minimo de 8 y maximo de 30.<br>';
+	// 		entrar = true;
+	// 	}
 
-		if(!/[a-z]/.test(dir) && (!/[A-Z]/.test(dir))){
-            mensaje += "la direccion no contiene caracteres. <br>"
-            entrar = true;
-        }
-		//FIN VALIDACIONES DIRECCION
+	// 	if(!/[a-z]/.test(dir) && (!/[A-Z]/.test(dir))){
+    //         mensaje += "la direccion no contiene caracteres. <br>"
+    //         entrar = true;
+    //     }
+	// 	//FIN VALIDACIONES DIRECCION
 
-		//-----------------------//
+	// 	//-----------------------//
 
-		//VALIDACIONES COMUNA
-		if (com.trim().length <= 5 || com.trim().length > 20) {
-			mensaje += 'La comuna debe tener un largo minimo de 5 y maximo de 20.<br>';
-			entrar = true;
-		}
-		if(!/[a-z]/.test(com) && (!/[A-Z]/.test(com))){
-            mensaje += "La comuna no contiene caracteres. <br>"
-            entrar = true;
-        }
-		if(/[0-9]/.test(com)){
-            mensaje += "La comuna no puede tener digitos. <br>"
-            entrar = true;
-        }
-		//FIN VALIDACIONES COMUNA
+	// 	//VALIDACIONES COMUNA
+	// 	if (com.trim().length <= 5 || com.trim().length > 20) {
+	// 		mensaje += 'La comuna debe tener un largo minimo de 5 y maximo de 20.<br>';
+	// 		entrar = true;
+	// 	}
+	// 	if(!/[a-z]/.test(com) && (!/[A-Z]/.test(com))){
+    //         mensaje += "La comuna no contiene caracteres. <br>"
+    //         entrar = true;
+    //     }
+	// 	if(/[0-9]/.test(com)){
+    //         mensaje += "La comuna no puede tener digitos. <br>"
+    //         entrar = true;
+    //     }
+	// 	//FIN VALIDACIONES COMUNA
 
-		//-----------------------//
+	// 	//-----------------------//
 
-		//VALIDACIONES CONTACTO
-		if (celu.trim().length != 9) {
-			mensaje += 'El celular debe tener un largo de 9. <br>';
-			entrar = true;
-		}
-		//FIN VALIDACIONES CELULAR
+	// 	//VALIDACIONES CONTACTO
+	// 	if (celu.trim().length != 9) {
+	// 		mensaje += 'El celular debe tener un largo de 9. <br>';
+	// 		entrar = true;
+	// 	}
+	// 	//FIN VALIDACIONES CELULAR
 
-		//-----------------------//
+	// 	//-----------------------//
 
-		if (entrar) {
-			$('#warnings').html(mensaje);
-		} else {
-			$('#warnings').html('Cambios aplicados correctamente.');
-		}
-	});
+	// 	if (entrar) {
+	// 		$('#warnings').html(mensaje);
+	// 	} else {
+	// 		$('#warnings').html('Cambios aplicados correctamente.');
+	// 	}
+	// });
 
 	/* Validaciones de cambiar contrasena */
 

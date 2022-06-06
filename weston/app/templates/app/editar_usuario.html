@@ -1,101 +1,76 @@
-{% extends 'app/base.html' %} 
-{% load static %} 
-{% block title %} Editar usuario {%endblock %} 
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %} Editar usuario {%endblock %}
 
 {% block content %}
 
-		<!--PERFIL USUARIO-->
-		<div class="container">
-			<form id="form-edit">
-				<div class="row">
-					<div class="col-2 mt-3 mb-3"></div>
-					<div class="col-8 mt-3 mb-3">
-						<div class="row">
-							<h3 class="texto-principal text-center">Editar perfil</h3>
-							<hr />
-							<!--titulo-->
-							<h5>Nombre Completo</h5>
-							<!--texto deshabilitado-->
-							<input
-								disabled
-								type="text"
-								class="form-control mt-1 mb-2"
-								name="nombre"
-								value="Juan Perez"
-							/>
+<!--PERFIL USUARIO-->
+<div class="container">
+	<form action="{% url 'post_editar_usuario' %}" method="POST" enctype="multipart/form-data" >
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-2 mt-3 mb-3"></div>
+			<div class="col-8 mt-3 mb-3">
+				<div>
+					<h3 class="texto-principal text-center">Editar perfil</h3>
+					<hr />
+					<!--titulo-->
+					<h5>Nombre Completo</h5>
+					<!--texto deshabilitado-->
+					<input disabled type="text" class="form-control mt-1 mb-2" name="nombre" value="{{user.nombre}}" />
 
-							<!--titulo-->
-							<h5>Correo Electronico</h5>
-							<!--texto deshabilitado-->
-							<input
-								disabled
-								type="text"
-								class="form-control mt-1 mb-2"
-								name="correo"
-								value="marcianeke@gmail.com"
-							/>
+					<!--titulo-->
+					<h5>Correo Electronico</h5>
+					<!--texto deshabilitado-->
+					<input disabled type="text" class="form-control mt-1 mb-2" value="{{user.email}}" />
 
-							<!--titulo-->
-							<h5>Dirección</h5>
-							<input
-								type="text"
-								class="form-control mt-1 mb-2"
-								name="direccion"
-								id="dir_edit"
-								value="Los puente albino 3183"
-							/>
+					<!--titulo-->
+					<h5>Dirección</h5>
+					<input type="text" class="form-control mt-1 mb-2" name="direccion" id="direccion"
+						value="{{direccion}}" />
 
-							<!--titulo-->
-							<h5>Contacto</h5>
-							<!--texto deshabilitado-->
-							<input
-								type="text"
-								class="form-control mt-1 mb-2"
-								name="contacto"
-								id="celu_edit"
-								value="7273 1722"
-							/>
+					<!--titulo-->
+					<h5>Contacto</h5>
+					<!--texto deshabilitado-->
+					<input type="text" class="form-control mt-1 mb-2" name="contacto" id="contacto" value="{{user.telefono}}" />
 
-							<h5>Comuna</h5>
-							<input
-								type="text"
-								id="com_edit"
-								class="form-control mb-2"
-								value="Conchali"
-							/>
-
-							<!--titulo-->
-							<h5>Contraseña</h5>
-							<!--texto deshabilitado-->
-							<input
-								disabled
-								type="password"
-								class="form-control mb-3"
-								name="contrasena"
-								placeholder="*********"
-							/>
-							<div class="row">
-								<div class="col-sm-12 col-md-6 mb-3">
-									<div class="d-grid gap-2">
-										<button type="submit" class="btn btn-dark">
-											Aplicar cambios
-										</button>
-									</div>
-								</div>
-								<div class="col-sm-12 col-md-6">
-									<div class="d-grid gap-2">
-										<a href="cambiar_contrasena.html" class="btn btn-dark"
-											>Cambiar contraseña</a
-										>
-									</div>
-								</div>
-								<p id="warnings" class="text-center"></p>
+					<h5>Region</h5>
+						<select class="form-control mt-1 mb-2" name="region" id="region" >
+							<option value="0" selected>Seleccione una region</option>
+							{% for r in region %}
+									<option value="{{ r.idRegion }}" selected required>{{ r.nombre }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<h5>Comuna</h5>
+					
+						<select class="form-control mt-1 mb-2" name="comuna" id="comuna">
+							<option value="0">Seleccione una comuna</option>
+							{% for c in comuna %} 
+								<option value="{{ c.idComuna }}" regionid={{c.region_id}} style="display: none;" required>{{ c.nombre }}</option>
+							{% endfor %}
+						</select>
+					                    
+					<div class="row mt-3">
+						<div class="col-sm-12 col-md-6 mb-3">
+							<div class="d-grid gap-2">
+								<button type="submit" class="btn btn-dark">
+									Aplicar cambios
+								</button>
 							</div>
 						</div>
+						<div class="col-sm-12 col-md-6">
+							<div class="d-grid gap-2">
+								<a href="cambiar_contrasena.html" class="btn btn-dark">Cambiar contraseña</a>
+							</div>
+						</div>
+						<p id="warnings" class="text-center"></p>
 					</div>
-					<div class="col-2"></div>
 				</div>
-			</form>
+			</div>
+			<div class="col-2"></div>
 		</div>
+	</form>
+</div>
 
 {% endblock %}

@@ -5,12 +5,33 @@
 {% block content %}
 		
 <div class="container">
-	<h1>Login</h1>
+	<div class="row">
+		<div class="col-2 mt-3 mb-3"></div>
+		<div class="col-8 mt-3 mb-3">
+			<div class="row">
+				<form action="{% url 'login_view' %}" role="form" method="POST" id="login">
+					{% csrf_token %}
+					<h1 class="texto-principal text-center">Iniciar Sesión</h1>
+					<hr />
+					<h5>Correo Electronico</h5>
+					{{ loginForm.email }}
 
-	<form action="" method="post">
-		{% csrf_token %}
-		{{form}}
-		<input type="submit" value="Ingresar">
-	</form>
+					<h5>Contraseña</h5>
+					{{ loginForm.password }}
+
+					<div class="d-grid gap-2">
+						<button type="submit" class="btn btn-dark mb-3" id="btn_reg">Iniciar Sesión</button>
+					</div>
+
+					<p id="warnings" class="text-center "></p>
+					<div class="text-center">
+						<p class="text-center" >¿No tienes una cuenta?</p>
+						<a href="" class="text-reset">Registrate aqui</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-2"></div>
+	</div>
 </div>
 {%endblock %} 		
