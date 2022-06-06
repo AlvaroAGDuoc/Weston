@@ -18,8 +18,7 @@
 								<th>Email</th>
 								<th>Telefono</th>
 								<th>Staff</th>
-								<th>Acción</th>					
-								<th>Acción</th>					
+								<th>Acción</th>										
 							</thead>
 							<tbody>
 								{% for user in usuarios %}
@@ -29,7 +28,7 @@
 										<td>{{user.telefono}}</td>
 										<td>{{user.staff}}</td>
 										<td><button type="submit" class="btn btn-outline-dark">Hacer admin</button></td>	
-										<td><button type="submit" class="btn btn-outline-dark">Quitar admin</button></td>									
+								
 									</tr>						
 								{% endfor %}								
 							</tbody>
