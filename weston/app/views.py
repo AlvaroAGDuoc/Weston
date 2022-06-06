@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from .models import Categoria, Detalle, Producto, Region, Direccion, Usuario, Compra
+from .models import Categoria, Detalle, Producto, Region, Direccion, Usuario, Compra, Comuna
 from django.contrib import messages
 from django.core.paginator import Paginator
 from .forms import RegistroUsuario
 from django.contrib.auth import authenticate, login
+import json
 import datetime
 # Create your views here.
 
@@ -42,6 +43,9 @@ def carrito(request):
 
 def checkout(request):
 
+    region = Region.objects.all()
+    comuna = Comuna.objects.all()
+
     if request.user.is_authenticated:
         usuario = request.user
         compra, created = Compra.objects.get_or_create(usuario=usuario, completada=False)
@@ -51,16 +55,13 @@ def checkout(request):
         productos = []
         compra = {"obtener_total_carrito": 0, 'obtener_productos_carrito': 0}
         
-    context = {'productos':productos , 'compra': compra, 'productosCarrito': productosCarrito}
+    context = {'productos':productos , 'compra': compra, 'productosCarrito': productosCarrito, 'region': region, 'comuna':comuna}
     return render(request, 'app/checkout.html', context)
 
 def actualizarProducto(request):
     data = json.loads(request.body)
     productoId = data['productoId']
     action = data['action']
-
-    print('Action:', action)
-    print('productoId:', productoId)   
 
     usuario = request.user
     producto = Producto.objects.get(idProducto=productoId)
@@ -101,9 +102,29 @@ def muestra_producto(request, id):
 
 def procesarCompra(request):
     transaccion_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
 
     if request.user.is_authenticated:
         usuario = request.user
+        compra, created = Compra.objects.get_or_create(usuario=usuario, completada=False)
+        total = data['form']['total']
+        compra.transaccion_id = transaccion_id
+
+        
+        compra.completada = True
+        compra.save()
+
+
+        com = data['envio']['comuna']
+        com2 = Comuna.objects.get(idComuna = com)
+
+
+        Direccion.objects.create(
+            descripcion = data['envio']['direccion'],
+            comuna = com2,
+            usuario = usuario,
+            compra = compra
+        )
 
     else:
         print("El usuario no esta logeado")
