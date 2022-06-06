@@ -30,6 +30,14 @@
 							alt="{{p.nombre}}"
 							
 						/>
+						{% else %}
+						<img
+							class="imagenProducto"
+							src="{% static 'app/img/weston.png' %}"
+							alt="{{p.nombre}}"
+							
+						/>
+						
 						{% endif %}
 						<div class="card-body">
 							<h4 class="card-title titulo-producto text-center">{{p.nombre}}</h4>
