@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from .models import Categoria, Detalle, Producto, Region, Direccion, Usuario, Compra, Comuna
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.hashers import make_password
 
 import json
@@ -33,6 +33,9 @@ def login_view(request):
     return redirect('login_inicio')
 
 
+def registro_inicio(request):
+    return render(request, 'registration/registro.html')
+
 def singup_view(request):
     signup_form = UserSignUpForm(request.POST or None)
     if signup_form.is_valid():
@@ -43,7 +46,7 @@ def singup_view(request):
        
         try:
            
-            user = Usuario.objects.create(
+            user = get_user_model().objects.create(
                 email=email,
                 nombre=nombre,
                 telefono=telefono,
@@ -55,15 +58,12 @@ def singup_view(request):
         except Exception as e:
             print(e)
             return JsonResponse({'detail': f'{e}'})
-    return render(request, 'registration/registro.html')
+    
 
 
 def logout_view(request):
     logout(request)
     return redirect('inicio')
-
-
-
 
 
 def perfil(request):
@@ -289,6 +289,23 @@ def post_editar_usuario(request):
 
 def cambiar_contrasena(request):
     return render(request, 'app/cambiar_contrasena.html')
+
+def cambio_contrasena(request):
+    usuario = request.user
+    claveActual = request.POST['claveActual']
+    claveNueva1 = request.POST['claveNueva']
+    claveNueva1 = request.POST['claveNuev2']
+    usuario.set_password(claveNueva1)
+    usuario.save()
+    user = authenticate(request, email=usuario.email, password = claveNueva1 )
+    if usuario is not None:
+        login(request, user)
+        messages.success(request, 'Contraseña actualizada')
+        return redirect('perfil')
+    else:
+        messages.warning(request, 'Ha ocurrido un error')
+        return redirect('perfil')
+
 
 def menu_admin(request):
     producto = Producto.objects.all()

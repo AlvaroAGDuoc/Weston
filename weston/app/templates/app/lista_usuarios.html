@@ -17,23 +17,21 @@
 								<th>Nombre</th>
 								<th>Email</th>
 								<th>Telefono</th>
-								<th>Dirección</th>			
-								<th>Comuna</th>
+								<th>Staff</th>
+								<th>Acción</th>					
 								<th>Acción</th>					
 							</thead>
 							<tbody>
-								{% for direcc in direccion %}
-
+								{% for user in usuarios %}
 									<tr class="table-light">
-										<td>{{direcc.usuario.nombre}}</td>		
-										<td>{{direcc.usuario.email}}</td>		
-										<td>{{direcc.usuario.telefono}}</td>
-										<td>{{direcc.descripcion}}</td>										
-										<td>{{direcc.comuna.nombre}}</td>
-										<td><button type="button" class="btn btn-outline-dark">Editar</button></td>										
+										<td>{{user.nombre}}</td>		
+										<td>{{user.email}}</td>		
+										<td>{{user.telefono}}</td>
+										<td>{{user.staff}}</td>
+										<td><button type="submit" class="btn btn-outline-dark">Hacer admin</button></td>	
+										<td><button type="submit" class="btn btn-outline-dark">Quitar admin</button></td>									
 									</tr>						
 								{% endfor %}								
-
 							</tbody>
 						</table>
 					</div>

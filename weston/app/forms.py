@@ -29,7 +29,7 @@ class UserSignUpForm(forms.Form):
     email = forms.EmailField(
         widget=forms.TextInput(
             attrs={
-                'id': 'loginEmail',
+                'id': 'signupEmail',
                 'type': 'email',
                 'class': 'form-control mt-1 mb-2',
                 'placeholder': 'Ingresar Correo Electrónico'
