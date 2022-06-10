@@ -136,6 +136,9 @@
 	</nav>
 	<!--FIN BARRA NAV-->
 
+	
+
+	
 	{% block content %} {% endblock %}
 
 	<!--FOOTER-->
@@ -206,6 +209,27 @@
 	<script src="{% static 'app/js/validaciones.js' %}"></script>
 	<script src="{% static 'app/js/lista.js' %}"></script>
 	<script type="text/javascript" src="{% static 'app/js/carrito.js' %}"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	{% for m in messages %}
+  		{% if 'success' in m.tags %}
+  		<script>
+			Swal.fire({
+			icon: 'success',
+			title: '{{m}}',	
+			timer: 2000
+			})
+		</script>
+  		{% else %}
+		<script>
+			Swal.fire({
+			icon: 'error',
+			title: '{{m}}',
+			showConfirmButton: false,
+			timer: 2000
+			})
+		</script>
+		{% endif %}
+	{% endfor %}
 
 </body>
 

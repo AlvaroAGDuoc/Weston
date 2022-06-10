@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import Categoria, Detalle, Producto, Region, Direccion, Usuario, Compra, Comuna
@@ -43,21 +44,33 @@ def singup_view(request):
         nombre = signup_form.cleaned_data.get('nombre')
         telefono = signup_form.cleaned_data.get('telefono')
         password = signup_form.cleaned_data.get('password')
-       
         try:
-           
-            user = get_user_model().objects.create(
+            valid = Usuario.objects.get(email = email)
+        except:
+            valid = NULL
+            
+        try:
+
+            if valid is not NULL:
+                #NO FUNCIONA ESTE MENSAJE QLO
+                messages.warning(request, 'El correo ya se encuentra registrado')
+                return redirect('registro')
+            else:
+
+                user = get_user_model().objects.create(
                 email=email,
                 nombre=nombre,
                 telefono=telefono,
                 password=make_password(password),
             )
             login(request, user)
+            messages.success(request, 'Cuenta registrada con exito')
             return redirect('inicio')
 
         except Exception as e:
             print(e)
-            return JsonResponse({'detail': f'{e}'})
+            messages.warning(request, 'Ha ocurrido un error')
+            return redirect('registro')
     
 
 
@@ -75,10 +88,12 @@ def perfil(request):
         direccion = direccion.descripcion
     else:
         direccion = "No tiene ninguna direccion"
-    
+
     contexto = {
         "direccion" : direccion
+        
     }    
+    
     return render(request, 'app/perfil_usuario.html',contexto) 
 
 def carrito(request):
@@ -284,6 +299,7 @@ def post_editar_usuario(request):
     usuario.telefono = telefono  
 
     usuario.save()
+    messages.success(request, 'Perfil modificado con éxito')
     return redirect('perfil')
 
 
