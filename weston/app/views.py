@@ -37,6 +37,7 @@ def login_view(request):
 def registro_inicio(request):
     return render(request, 'registration/registro.html')
 
+
 def singup_view(request):
     signup_form = UserSignUpForm(request.POST or None)
     if signup_form.is_valid():
@@ -44,20 +45,10 @@ def singup_view(request):
         nombre = signup_form.cleaned_data.get('nombre')
         telefono = signup_form.cleaned_data.get('telefono')
         password = signup_form.cleaned_data.get('password')
+       
         try:
-            valid = Usuario.objects.get(email = email)
-        except:
-            valid = NULL
-            
-        try:
-
-            if valid is not NULL:
-                #NO FUNCIONA ESTE MENSAJE QLO
-                messages.warning(request, 'El correo ya se encuentra registrado')
-                return redirect('registro')
-            else:
-
-                user = get_user_model().objects.create(
+           
+            user = get_user_model().objects.create(
                 email=email,
                 nombre=nombre,
                 telefono=telefono,
@@ -68,10 +59,8 @@ def singup_view(request):
             return redirect('inicio')
 
         except Exception as e:
-            print(e)
             messages.warning(request, 'Ha ocurrido un error')
             return redirect('registro')
-    
 
 
 def logout_view(request):
