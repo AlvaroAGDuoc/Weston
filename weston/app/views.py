@@ -39,7 +39,9 @@ def registro_inicio(request):
 
 
 def singup_view(request):
+    
     signup_form = UserSignUpForm(request.POST or None)
+    
     if signup_form.is_valid():
         email = signup_form.cleaned_data.get('email')
         nombre = signup_form.cleaned_data.get('nombre')
@@ -60,7 +62,7 @@ def singup_view(request):
 
         except Exception as e:
             messages.warning(request, 'Ha ocurrido un error')
-            return redirect('registro')
+            return redirect('registro_inicio')
 
 
 def logout_view(request):
