@@ -27,11 +27,25 @@
 						<h5 class="titulo-producto">{{producto.stock}} Disponibles</h5>
 
 		
-						<button data-producto="{{producto.idProducto}}" data-action="add" 
+						<button data-producto="{{producto.idProducto}}" data-action="add" id="agregar"
 						class="btn btn-dark add-btn update-cart">Agregar al Carro</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
+		{% if not user.is_authenticated %}
+		<script type="text/javascript">
+			document.getElementById('agregar').addEventListener('click', function(e){
+			e.preventDefault()
+			Swal.fire({
+			icon: 'error',
+			title: 'Error en su solicitud',
+			showConfirmButton: false,
+			text: 'Debes iniciar sesión para ver tu carrito',
+			
+			footer: '<a href="http://127.0.0.1:8000/login_inicio"> <button class = "btn btn-dark">¡Ingresa sesión aca!</button> </a>',
+			})
+		})
+		</script>
+		{% endif %}
 {% endblock %}

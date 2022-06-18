@@ -27,11 +27,9 @@ def login_view(request):
             messages.success(request, 'Has iniciado sesión correctamente')
             return redirect('inicio')
         else:
-            messages.warning(request, 'Correo Electrónico o Contraseña inválida')
+            messages.warning(request, 'Usuario incorrecto')
             return redirect('login_inicio')
 
-    messages.error(request, 'Formulario Inválido')
-    return redirect('login_inicio')
 
 
 def registro_inicio(request):
@@ -48,6 +46,7 @@ def singup_view(request):
         telefono = signup_form.cleaned_data.get('telefono')
         password = signup_form.cleaned_data.get('password')
        
+
         try:
            
             user = get_user_model().objects.create(
@@ -61,12 +60,12 @@ def singup_view(request):
             return redirect('inicio')
 
         except Exception as e:
-            messages.warning(request, 'Ha ocurrido un error')
-            return redirect('registro_inicio')
-
+            messages.warning(request, 'El email que utilizo ya existe, intente con otro')
+            
 
 def logout_view(request):
     logout(request)
+    messages.success(request, '¡Cerraste sesión exitosamente!')
     return redirect('inicio')
 
 
