@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'rest_framework', # SERIALIZER
+    'rest_producto',
+    'rest_framework.authtoken', #EL TOKEN
+
 ]
 
 AUTH_USER_MODEL = 'app.Usuario' # CAMBIA EL MODELO PREDIFINIDO DE DJANGO POR EL DE NOSOTROS
@@ -73,6 +77,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'weston.wsgi.application'
 
+REST_FRAMEWORK={
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -80,7 +89,7 @@ WSGI_APPLICATION = 'weston.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '127.0.0.1:1521/orcl',
+        'NAME': '127.0.0.1:1521/xe',
         'USER': 'adminweston',
         'PASSWORD': 'admin123',
         'TEST': {
