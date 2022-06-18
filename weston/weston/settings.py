@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'rest_framework', # SERIALIZER
+    'rest_framework', 
     'rest_producto',
-    'rest_framework.authtoken', #EL TOKEN
+    'rest_categoria',
+    'rest_region',
+    'rest_framework.authtoken',
 
 ]
 
@@ -89,7 +91,7 @@ REST_FRAMEWORK={
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '127.0.0.1:1521/xe',
+        'NAME': '127.0.0.1:1521/orcl',
         'USER': 'adminweston',
         'PASSWORD': 'admin123',
         'TEST': {
