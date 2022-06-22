@@ -61,6 +61,7 @@ def singup_view(request):
 
         except Exception as e:
             messages.warning(request, 'El email que utilizo ya existe, intente con otro')
+            return redirect('registro_inicio')
             
 
 def logout_view(request):
