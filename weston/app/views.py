@@ -205,7 +205,7 @@ def inicio(request):
     return render(request, 'app/index.html', contexto)
 
 def producto_cocina(request):
-    productoCocina = Producto.objects.filter(categoria='2', stock__gte = 1)
+    productoCocina = Producto.objects.filter(categoria='3', stock__gte = 1)
     paginator = Paginator(productoCocina, 6)
 
     page = request.GET.get("page") or 1   
@@ -220,7 +220,7 @@ def producto_cocina(request):
     return render(request, 'app/producto_cocina.html', contexto)
 
 def producto_libreros(request):
-    productoLibreros = Producto.objects.filter(categoria='3', stock__gte = 1)
+    productoLibreros = Producto.objects.filter(categoria='2', stock__gte = 1)
     paginator = Paginator(productoLibreros, 6)
 
     page = request.GET.get("page") or 1   
