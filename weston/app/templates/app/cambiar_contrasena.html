@@ -4,7 +4,7 @@
 
 {% block content %}
 		<div class="container">
-			<form  method="POST" enctype="multipart/form-data" id="form-camb" >
+			<form  method="POST" action="{% url 'cambio_contrasena'%}" enctype="multipart/form-data" id="form-camb" >
 
 				{% csrf_token %}
 				<div class="row">
@@ -19,7 +19,7 @@
 							<input
 								type="password"
 								class="form-control mb-3"
-								name="clave_actual"
+								name="claveActual"
 								placeholder="Contraseña actual"
 								id= "claveActual"
 								required
@@ -27,29 +27,25 @@
 							
 							<input
 								type="password"
-								id="nueva_pass"
+								
 								class="form-control mb-3"
-								name="nueva_clave1"
+								name="claveNueva1"
 								placeholder="Nueva contraseña"
-								id="claveNueva"
+								id="claveNueva1"
 								required
 							/>
 					
 							<input
 								type="password"
-								id="nueva_pass2"
+								
 								class="form-control mb-3"
-								name="nueva_clave2"
+								name="claveNueva2"
 								placeholder="Confirme la contraseña nueva"
 								id="claveNueva2"
 								required
 							/>
 
-							{% for field in form %}
-								{% for error in field.errors %}
-									<p style="color: red;">{{error}}</p>
-								{% endfor %}
-							{% endfor %}
+							<p id="warnings" class="text-center"></p>
 
 							<button type="submit" class="btn btn-dark">Cambiar</button>
 						</div>
@@ -58,5 +54,6 @@
 				</div>
 			</form>
 		</div>
-
+		
+		
 {% endblock %}

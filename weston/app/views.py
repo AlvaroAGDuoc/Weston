@@ -5,8 +5,7 @@ from .models import Categoria, Detalle, Producto, Region, Direccion, Usuario, Co
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.contrib.auth.hashers import make_password
-
+from django.contrib.auth.hashers import make_password, check_password
 import json
 import datetime
 from .forms import UserLoginForm, UserSignUpForm
@@ -114,11 +113,14 @@ def checkout(request):
         compra, created = Compra.objects.get_or_create(usuario=usuario, completada=False)
         productos = compra.detalle_set.all()
         productosCarrito = compra.obtener_productos_carrito
+        direccion = Direccion.objects.get(usuario = usuario)
+        direccion = direccion.descripcion     
     else:
         productos = []
+        direccion = ""
         compra = {"obtener_total_carrito": 0, 'obtener_productos_carrito': 0}
         
-    context = {'productos':productos , 'compra': compra, 'productosCarrito': productosCarrito, 'region': region, 'comuna':comuna}
+    context = {'productos':productos , 'compra': compra, 'productosCarrito': productosCarrito, 'region': region, 'comuna':comuna, 'direccion': direccion}
     return render(request, 'app/checkout.html', context)
 
 def actualizarProducto(request):
@@ -131,12 +133,18 @@ def actualizarProducto(request):
     compra,created = Compra.objects.get_or_create(usuario=usuario, completada = False)
     detalle, created = Detalle.objects.get_or_create(compra=compra, producto=producto)
 
-    if action == 'add':
+    if action == 'add' and producto.stock > 0:
         detalle.cantidad = (detalle.cantidad + 1)
+        producto.stock = (producto.stock - 1)
+    
     elif action == 'remove':
         detalle.cantidad = (detalle.cantidad - 1)
+        producto.stock = (producto.stock + 1)
+    else:
+        messages.error(request,'No hay stock disponible para este producto')
 
     detalle.save()
+    producto.save()
 
     if detalle.cantidad <= 0:
         detalle.delete()
@@ -194,7 +202,7 @@ def procesarCompra(request):
     return JsonResponse('Compra realizada', safe=False)
  
 def inicio(request):
-    productoInicio = Producto.objects.filter(stock__gte = 1, precio__lte = 50000)
+    productoInicio = Producto.objects.filter(precio__lte = 50000)
     paginator = Paginator(productoInicio, 6)
 
     page = request.GET.get("page") or 1   
@@ -299,21 +307,27 @@ def post_editar_usuario(request):
 def cambiar_contrasena(request):
     return render(request, 'app/cambiar_contrasena.html')
 
+
 def cambio_contrasena(request):
     usuario = request.user
     claveActual = request.POST['claveActual']
-    claveNueva1 = request.POST['claveNueva']
-    claveNueva1 = request.POST['claveNuev2']
-    usuario.set_password(claveNueva1)
-    usuario.save()
-    user = authenticate(request, email=usuario.email, password = claveNueva1 )
-    if usuario is not None:
-        login(request, user)
-        messages.success(request, 'Contraseña actualizada')
-        return redirect('perfil')
+    claveNueva1 = request.POST['claveNueva1']
+    claveNueva2 = request.POST['claveNueva2']
+    pass_valida = check_password(claveActual, usuario.password)
+    if not pass_valida:
+        messages.error(request,"Su contraseña antigua esta incorrecta")
+        return redirect ('cambiar_contrasena')
     else:
-        messages.warning(request, 'Ha ocurrido un error')
-        return redirect('perfil')
+        usuario.set_password(claveNueva1)
+        usuario.save()
+        user = authenticate(request, email=usuario.email, password = claveNueva1 )
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Contraseña actualizada')
+            return redirect('perfil')
+        else:
+            messages.warning(request, 'Ha ocurrido un error')
+            return redirect('perfil')
 
 
 def menu_admin(request):
@@ -350,6 +364,7 @@ def lista_usuarios(request):
         "region": region,
     }
     return render(request, 'app/lista_usuarios.html', contexto)
+
 
 def modificar_producto(request, id):
     producto1 = Producto.objects.get(idProducto = id) # obtengo los datos del producto
@@ -417,8 +432,6 @@ def eliminar_producto(request, id):
 
     return redirect('menu_admin')
     
-def registro_ventas(request):
-    return render(request, 'app/registro_ventas.html')
 
 
 

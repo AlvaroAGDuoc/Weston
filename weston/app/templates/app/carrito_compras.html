@@ -18,9 +18,17 @@
 						<tr>
 							<th><h5>Productos añadidos: <strong>{{compra.obtener_productos_carrito}}</strong></h5></th>
 							<th><h5>Total compra: <strong>${{compra.obtener_total_carrito}}</strong></h5></th>
+
+
+							{% if compra.obtener_productos_carrito > 0%}
 							<th>
 								<a  style="float:right; margin:5px;" class="btn btn-dark" href="{% url 'checkout' %}">Continuar Compra</a>
 							</th>
+							{% else %}
+							<th>
+								<a  style="float:right; margin:5px;" class="btn btn-dark" disabled >No hay productos</a>
+							</th>
+							{% endif %}
 						</tr>
 					</table>
 	

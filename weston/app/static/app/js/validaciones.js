@@ -141,47 +141,45 @@ $(document).ready(function () {
 		}
 	});
 
-	/* Validaciones de cambiar contrasena */
+	 // FORMULARIO CAMBIAR CONTRASEÑA
+	 $("#cambiarClave").submit(function (e) {
 
-	$('#form-camb').submit(function (e) {
-		e.preventDefault();
-		var clave = $('#nueva_pass').val();
-		var clave2 = $('#nueva_pass2').val();
+        var clave = $("#claveActual").val();
+        var claveNu1 = $("#claveNueva1").val();
+        var claveNu2 = $("#claveNueva2").val();
 
-		var mensaje = '';
+        let msj = "";
+        let entrar = false;
 
-		let entrar = false;
+        $("#mensajes").css({ 'color': 'red' });
+        $("#mensajes").html("");
 
-		//VALIDACIONES CLAVE
-		if (clave.trim().length < 6) {
-			mensaje += 'La clave debe tener un largo minimo de 6. <br>';
-			entrar = true;
-		}
-
-		if (clave != clave2) {
-            mensaje += "Las claves no coinciden. <br>"
+        if (claveNu1.trim().length < 6) {
+            msj += "La contraseña nueva de tener al menos 6 caracteres <br>";
+            entrar = true;
+        } if (!/[A-Z]/.test(claveNu1)) {
+            msj += "La contraseña nueva de tener al menos 1 mayúscula <br>";
+            entrar = true;
+        } if (!/[0-9]/.test(claveNu1)) {
+            msj += "La contraseña nueva de tener al menos 1 número <br>";
+            entrar = true;
+        } if (/[ ]/.test(claveNu1)) {
+            msj += "La contraseña nueva no debe tener espacios <br>";
+            entrar = true;
+        } if (claveNu1 == clave) {
+            msj += "Las contraseñas nuevas deben ser distinta a la contraseña antigua <br>"
+            entrar = true;
+        } if (claveNu1 != claveNu2) {
+            msj += "Las contraseñas nuevas deben ser iguales <br>"
             entrar = true;
         }
 
-		if(!/[A-Z]/.test(clave)){
-            mensaje += "La clave no contiene una mayuscula. <br>"
-            entrar = true;
+        if (entrar) {
+            $("#warnings").html(msj);
+            e.preventDefault();
+        } else {
         }
-
-		if(!/[0-9]/.test(clave)){
-            mensaje += "La clave no contiene un digito. <br>"
-            entrar = true;
-        }
-		//FIN VALIDACIONES CLAVE
-
-		//-----------------------//
-
-		if (entrar) {
-			$('#warnings').html(mensaje);
-		} else {
-			$('#warnings').html('Cambios aplicados correctamente');
-		}
-	});
+    })
 
 	/* Validaciones agregar producto */
 	$('#form_agregar').submit(function (e) {

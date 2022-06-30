@@ -21,10 +21,9 @@
 				<h3>{{producto.nombre}}</h3>
 				<hr />
 				<h5>{{producto.descripcion}}</h5>
-				<h5 class="titulo-producto">{{producto.stock}} Disponibles</h5>
-
+				{% if producto.stock > 0 %}
+				<h5 class="titulo-producto" id="stock">{{producto.stock}} Disponibles</h5>
 				<h3 class="titulo-producto">${{producto.precio}}</h3>
-
 				<button
 					data-producto="{{producto.idProducto}}"
 					data-action="add"
@@ -33,6 +32,22 @@
 				>
 					Agregar al Carro
 				</button>
+				
+				{% else %}
+				<h5 class="titulo-producto" id="stock">Sin stock actualmente</h5>
+				<h3 class="titulo-producto">${{producto.precio}}</h3>
+				<button
+					id="agregar"
+					class="btn btn-dark add-btn update-cart"
+					disabled
+				>
+					Agregar al Carro
+				</button>
+
+				{% endif %}
+				
+
+				
 			</div>
 		</div>
 	</div>
@@ -52,4 +67,6 @@
 		});
 	});
 </script>
-{% endif %} {% endblock %}
+{% endif %} 
+
+{% endblock %}
