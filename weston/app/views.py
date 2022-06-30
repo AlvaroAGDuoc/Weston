@@ -87,6 +87,8 @@ def perfil(request):
     
     return render(request, 'app/perfil_usuario.html',contexto) 
 
+
+
 def carrito(request):
 
     if request.user.is_authenticated:

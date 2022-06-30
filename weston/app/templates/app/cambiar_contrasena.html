@@ -4,7 +4,9 @@
 
 {% block content %}
 		<div class="container">
-			<form  action="{% url 'cambio_contrasena' %}" method="POST" enctype="multipart/form-data" id="form-camb" >
+			<form  method="POST" enctype="multipart/form-data" id="form-camb" >
+
+				{% csrf_token %}
 				<div class="row">
 					<div class="col-2 mt-3 mb-3"></div>
 					<div class="col-8 mt-3 mb-3">
@@ -13,36 +15,44 @@
 							<hr />
 
 							<!--titulo-->
-							<h5>Contraseña actual</h5>
+						
 							<input
 								type="password"
 								class="form-control mb-3"
-								name="contrasena"
-								placeholder="*********"
+								name="clave_actual"
+								placeholder="Contraseña actual"
 								id= "claveActual"
+								required
 							/>
-							<h5>Nueva contraseña</h5>
+							
 							<input
 								type="password"
 								id="nueva_pass"
 								class="form-control mb-3"
-								name="contrasena"
-								placeholder="*********"
+								name="nueva_clave1"
+								placeholder="Nueva contraseña"
 								id="claveNueva"
+								required
 							/>
-							<h5>Reingrese nueva contraseña</h5>
+					
 							<input
 								type="password"
 								id="nueva_pass2"
 								class="form-control mb-3"
-								name="contrasena"
-								placeholder="*********"
+								name="nueva_clave2"
+								placeholder="Confirme la contraseña nueva"
 								id="claveNueva2"
+								required
 							/>
+
+							{% for field in form %}
+								{% for error in field.errors %}
+									<p style="color: red;">{{error}}</p>
+								{% endfor %}
+							{% endfor %}
 
 							<button type="submit" class="btn btn-dark">Cambiar</button>
 						</div>
-						<p id="warnings" class="text-center"></p>
 					</div>
 					<div class="col-2"></div>
 				</div>
