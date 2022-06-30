@@ -1,60 +1,56 @@
-{% extends 'app/base.html' %} 
-{% load static %} 
-{% block title %} Admin {%endblock %} 
+{% extends 'app/base.html' %} {% load static %} {% block title %} Admin
+{%endblock %} {% block content %}
+<!--CONTENIDO-->
 
-{% block content %}
-		<!--CONTENIDO-->
+<div class="container">
+	<h1 class="h2 m-4 text-center texto-principal">
+		Administración de productos
+	</h1>
+	<div class="d-grid gap-2 col-6 mx-auto">
+		<a class="text-center" href="{%url 'form_agregar'%}"
+			><button class="btn btn-dark" type="button">Agregar producto</button>
+		</a>
+	</div>
+</div>
+<!--PRODUCTOS-->
 
-		<div class="container">
-			<h1 class="h2 m-4  text-center texto-principal">Administración de productos</h1>
-			<div class="d-grid gap-2 col-6 mx-auto">
-				<a class="text-center" href="{%url 'form_agregar'%}"
-					><button class="btn btn-dark" type="button">Agregar producto</button>
-				</a>
-			</div>
-		</div>
-		<!--PRODUCTOS-->
-		
+<div class="container">
+	<hr />
+	<div class="row mb-3">
+		{% for p in productos %}
+		<div class="col-md-4 col-sm-6 mb-3">
+			<div class="card shadow bg-light">
+				{% if p.imagen %}
+				<img class="imagenProducto" src="{{p.imagen.url}}" alt="{{p.nombre}}" />
+				{% else %}
+				<img
+					class="imagenProducto"
+					src="{% static 'app/img/weston.png' %}"
+					alt="{{p.nombre}}"
+				/>
 
-		<div class="container">
-			
-			<hr />
-			<div class="row mb-3">
-				{% for p in productos %}
-				<div class="col-md-4 col-sm-6 mb-3">
-					<div class="card shadow bg-light">
-						{% if p.imagen %}
-						<img
-							class="imagenProducto"
-							src="{{p.imagen.url}}"
-							alt="{{p.nombre}}"
-							
-						/>
-						{% else %}
-						<img
-							class="imagenProducto"
-							src="{% static 'app/img/weston.png' %}"
-							alt="{{p.nombre}}"
-							
-						/>
-						
-						{% endif %}
-						<div class="card-body">
-							<h4 class="card-title titulo-producto text-center">{{p.nombre}}</h4>
-							<p class="card-text">
-								{{p.descripcionCorta}}
-							</p>
-							<h3 class="titulo-producto text-center">${{p.precio}}</h3>
-							<div class="d-grid gap-2">
-								<a href="{% url 'modificar_producto' p.idProducto %}" class="btn btn-dark">Editar</a>
-								<a href="{% url 'eliminar_producto' p.idProducto %}" class="btn btn-dark">Estado</a>
-							</div>
+				{% endif %}
+				<div class="card-body">
+					<h4 class="card-title titulo-producto text-center">{{p.nombre}}</h4>
+					<p class="card-text">{{p.descripcionCorta}}</p>
+					<h3 class="titulo-producto text-center">${{p.precio}}</h3>
+					<div class="d-grid gap-2">
+						<a
+							href="{% url 'modificar_producto' p.idProducto %}"
+							class="btn btn-dark"
+							>Editar</a
+						>
+						<a
+							href="{% url 'eliminar_producto' p.idProducto %}"
+							class="btn btn-dark"
+							>Eliminar</a
+						>
 					</div>
 				</div>
 			</div>
-			{% endfor %}
 		</div>
+		{% endfor %}
 	</div>
-				
+</div>
 
 {% endblock %}
