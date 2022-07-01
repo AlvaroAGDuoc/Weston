@@ -362,4 +362,9 @@ $(document).ready(function () {
 			$('#warnings').html('Producto agregado correctamente');
 		}
 	});
+
+
+
+
+	
 });

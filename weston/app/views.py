@@ -113,14 +113,13 @@ def checkout(request):
         compra, created = Compra.objects.get_or_create(usuario=usuario, completada=False)
         productos = compra.detalle_set.all()
         productosCarrito = compra.obtener_productos_carrito
-        direccion = Direccion.objects.get(usuario = usuario)
-        direccion = direccion.descripcion     
+        
     else:
         productos = []
         direccion = ""
         compra = {"obtener_total_carrito": 0, 'obtener_productos_carrito': 0}
         
-    context = {'productos':productos , 'compra': compra, 'productosCarrito': productosCarrito, 'region': region, 'comuna':comuna, 'direccion': direccion}
+    context = {'productos':productos , 'compra': compra, 'productosCarrito': productosCarrito, 'region': region, 'comuna':comuna}
     return render(request, 'app/checkout.html', context)
 
 def actualizarProducto(request):
@@ -196,7 +195,7 @@ def procesarCompra(request):
             usuario = usuario,
             compra = compra
         )
-
+        
     else:
         print("El usuario no esta logeado")
     return JsonResponse('Compra realizada', safe=False)
