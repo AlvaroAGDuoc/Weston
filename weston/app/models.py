@@ -117,8 +117,8 @@ class Producto(models.Model):
     imagen = models.ImageField(upload_to="productos", null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     stock = models.IntegerField(verbose_name="Stock del producto", null=True, blank= False)
-    descripcionCorta = models.TextField(null=True, blank= False, verbose_name="Descripcion corta del producto")
-    descripcion = models.TextField(null=True, blank= False, verbose_name="Descripcion del producto")
+    descripcionCorta = models.TextField(null=True, max_length=200, blank= False, verbose_name="Descripcion corta del producto")
+    descripcion = models.TextField(null=True, max_length=200, blank= False, verbose_name="Descripcion del producto")
 
     def __str__(self):
         return self.nombre
