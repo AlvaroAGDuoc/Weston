@@ -255,9 +255,6 @@ def producto_muebles(request):
     }
     return render(request, 'app/producto_muebles.html', contexto)
 
-def contacto(request):
-    return render(request, 'app/contacto.html')
-
 def contrasena_olvidada(request):
     return render(request, 'app/contrasena_olvidada.html')
     
